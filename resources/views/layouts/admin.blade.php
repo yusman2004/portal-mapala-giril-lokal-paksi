@@ -6,461 +6,1127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-        @yield('title', 'Dashboard Admin') | MAPALA
+        @yield('title', 'Dashboard') - MAPALA Giril Lokal Paksi
     </title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-          rel="stylesheet">
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background: #f4f6f9;
-            font-family: Arial, sans-serif;
             margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f4f7f6;
+            color: #1f2937;
+            overflow-x: hidden;
         }
 
-        .sidebar {
-            width: 260px;
-            min-height: 100vh;
-            background: #163b2c;
-            color: white;
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .admin-sidebar {
             position: fixed;
-            left: 0;
             top: 0;
-            bottom: 0;
-            z-index: 1050;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+
+            background: linear-gradient(
+                180deg,
+                #12372a 0%,
+                #0d2b21 100%
+            );
+
+            color: white;
+            z-index: 1100;
             overflow-y: auto;
-            transition: transform 0.25s ease;
+            transition: all .3s ease;
+
+            box-shadow: 5px 0 25px rgba(0, 0, 0, .08);
         }
 
-        .brand {
-            padding: 25px 20px;
-            font-weight: bold;
-            font-size: 18px;
+        .admin-sidebar::-webkit-scrollbar {
+            width: 5px;
         }
 
-        .sidebar a {
+        .admin-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,.15);
+            border-radius: 20px;
+        }
+
+
+        /* =========================================
+           BRAND
+        ========================================= */
+
+        .sidebar-brand {
+            height: 82px;
+            padding: 0 22px;
+
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #d8e8df;
-            text-decoration: none;
-            padding: 13px 20px;
+
+            border-bottom: 1px solid rgba(255,255,255,.08);
         }
 
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: #286347;
-            color: white;
-        }
 
-        .sidebar a i {
-            width: 22px;
-        }
+        /* LOGO MAPALA */
 
-        .main-content {
-            margin-left: 260px;
-            min-height: 100vh;
-            width: calc(100% - 260px);
-        }
+        .brand-logo {
+            width: 48px;
+            height: 48px;
 
-        .navbar-custom {
-            background: white;
-            padding: 18px 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+            flex-shrink: 0;
 
-        .sidebar-toggle {
-            width: 42px;
-            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: none;
+
+            overflow: hidden;
+
+            border-radius: 10px;
+
+            background: rgba(255,255,255,.12);
         }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+        }
+
+
+        .brand-text {
+            line-height: 1.15;
+        }
+
+        .brand-title {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .brand-subtitle {
+            font-size: 10px;
+            color: rgba(255,255,255,.58);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================================
+           MENU
+        ========================================= */
+
+        .sidebar-menu {
+            padding: 20px 14px;
+        }
+
+        .menu-label {
+            padding: 0 12px;
+            margin: 8px 0 10px;
+
+            color: rgba(255,255,255,.38);
+
+            font-size: 10px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+        }
+
+        .sidebar-menu a {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            min-height: 46px;
+
+            padding: 0 14px;
+            margin-bottom: 5px;
+
+            border-radius: 11px;
+
+            color: rgba(255,255,255,.68);
+
+            font-size: 13px;
+            font-weight: 500;
+
+            transition: all .2s ease;
+        }
+
+        .sidebar-menu a i {
+            width: 22px;
+
+            text-align: center;
+
+            font-size: 17px;
+        }
+
+        .sidebar-menu a:hover {
+            color: white;
+
+            background: rgba(255,255,255,.07);
+
+            transform: translateX(2px);
+        }
+
+        .sidebar-menu a.active {
+            color: white;
+
+            background: linear-gradient(
+                90deg,
+                rgba(52,211,153,.23),
+                rgba(52,211,153,.08)
+            );
+
+            box-shadow: inset 3px 0 0 #34d399;
+        }
+
+        .sidebar-menu a.active i {
+            color: #6ee7b7;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+
+            background: rgba(255,255,255,.07);
+
+            margin: 18px 10px;
+        }
+
+
+        /* =========================================
+           LOGOUT
+        ========================================= */
+
+        .sidebar-logout {
+            margin-top: 15px;
+        }
+
+        .sidebar-logout button {
+            width: 100%;
+
+            border: 0;
+
+            background: transparent;
+
+            color: #fca5a5;
+
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 12px 14px;
+
+            border-radius: 11px;
+
+            font-size: 13px;
+            font-weight: 500;
+
+            transition: .2s;
+        }
+
+        .sidebar-logout button:hover {
+            background: rgba(239,68,68,.10);
+            color: #fecaca;
+        }
+
+        .sidebar-logout i {
+            width: 22px;
+
+            text-align: center;
+
+            font-size: 17px;
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .admin-main {
+            margin-left: 260px;
+
+            min-height: 100vh;
+
+            transition: all .3s ease;
+        }
+
+
+        /* =========================================
+           TOPBAR
+        ========================================= */
+
+        .admin-topbar {
+            height: 82px;
+
+            background: rgba(255,255,255,.95);
+
+            border-bottom: 1px solid #e8eeeb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .page-heading {
+            font-size: 14px;
+            font-weight: 700;
+
+            color: #173c2e;
+        }
+
+        .page-breadcrumb {
+            font-size: 11px;
+
+            color: #94a3b8;
+
+            margin-top: 2px;
+        }
+
+        .mobile-menu-btn {
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid #e5ebe8;
+
+            background: white;
+
+            border-radius: 10px;
+
+            color: #173c2e;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* =========================================
+           TOPBAR RIGHT
+        ========================================= */
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .notification-btn {
+            position: relative;
+
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid #e8eeeb;
+
+            background: white;
+
+            color: #64748b;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-btn:hover {
+            background: #f0fdf4;
+            color: #166534;
+        }
+
+        .notification-dot {
+            position: absolute;
+
+            top: 8px;
+            right: 8px;
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #ef4444;
+
+            border: 2px solid white;
+        }
+
+
+        /* =========================================
+           ADMIN PROFILE
+        ========================================= */
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding-left: 5px;
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #166534,
+                #34d399
+            );
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .admin-info {
+            line-height: 1.2;
+        }
+
+        .admin-name {
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #1e293b;
+        }
+
+        .admin-role {
+            font-size: 10px;
+
+            color: #94a3b8;
+
+            margin-top: 3px;
+        }
+
+
+        /* =========================================
+           CONTENT
+        ========================================= */
+
+        .admin-content {
+            padding: 30px;
+
+            max-width: 1700px;
+
+            margin: auto;
+        }
+
+
+        /* =========================================
+           FLASH MESSAGE
+        ========================================= */
+
+        .alert {
+            border: 0;
+
+            border-radius: 14px;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
 
         .sidebar-overlay {
             display: none;
         }
 
-        .content {
-            padding: 25px;
-        }
+        @media (max-width: 991px) {
 
-        .stat-card {
-            border: none;
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #e1f0e7;
-            color: #1b4332;
-            font-size: 22px;
-        }
-
-        .table-card {
-            border: none;
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
-        }
-
-        .badge-status {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        /* Scrollbar Sidebar */
-        .sidebar::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: #163b2c;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #286347;
-            border-radius: 10px;
-        }
-
-        @media (max-width: 991.98px) {
-
-            .sidebar {
+            .admin-sidebar {
                 transform: translateX(-100%);
             }
 
-            .sidebar.mobile-open {
+            .admin-sidebar.show {
                 transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
             }
 
             .sidebar-overlay {
                 position: fixed;
+
                 inset: 0;
-                background: rgba(0, 0, 0, .45);
-                z-index: 1040;
+
+                background: rgba(0,0,0,.45);
+
+                z-index: 1050;
+
+                display: none;
             }
 
             .sidebar-overlay.show {
                 display: block;
             }
 
-            .main-content {
-                margin-left: 0 !important;
-                width: 100% !important;
+            .admin-topbar {
+                padding: 0 20px;
             }
 
-            .navbar-custom {
-                padding: 15px;
-            }
-
-            .content {
-                padding: 15px;
-            }
-
-            .sidebar-toggle {
-                display: flex !important;
+            .admin-content {
+                padding: 22px;
             }
         }
+
+
+        @media (max-width: 576px) {
+
+            .admin-topbar {
+                height: 70px;
+
+                padding: 0 15px;
+            }
+
+            .page-heading {
+                font-size: 12px;
+            }
+
+            .page-breadcrumb {
+                display: none;
+            }
+
+            .admin-info {
+                display: none;
+            }
+
+            .notification-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .admin-avatar {
+                width: 38px;
+                height: 38px;
+            }
+
+            .admin-content {
+                padding: 18px 14px;
+            }
+
+
+            /* LOGO HP */
+
+            .sidebar-brand {
+                padding: 0 18px;
+            }
+
+            .brand-logo {
+                width: 46px;
+                height: 46px;
+            }
+
+            .brand-title {
+                font-size: 15px;
+            }
+
+            .brand-subtitle {
+                font-size: 9px;
+            }
+        }
+
     </style>
 
     @stack('styles')
 
 </head>
 
+
 <body>
 
-    {{-- =====================================================
+
+    <!-- =========================================
+         OVERLAY MOBILE
+    ========================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+    <!-- =========================================
          SIDEBAR
-    ====================================================== --}}
+    ========================================== -->
 
-    <aside class="sidebar" id="adminSidebar">
+    <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+    >
 
-        {{-- BRAND --}}
-        <div class="brand">
-            <i class="bi bi-mountains"></i>
-            MAPALA ADMIN
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+
+                <img
+                    src="{{ asset('images/logo-mapala.png') }}"
+                    alt="Logo MAPALA Giril Lokal Paksi"
+                >
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <div class="brand-title">
+                    MAPALA
+                </div>
+
+                <div class="brand-subtitle">
+                    Giril Lokal Paksi
+                </div>
+
+            </div>
+
         </div>
 
 
-        {{-- DASHBOARD --}}
-        <a href="{{ route('admin.dashboard') }}"
-           class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+        <!-- MENU -->
 
-            <i class="bi bi-speedometer2"></i>
-            <span>Dashboard</span>
-
-        </a>
+        <div class="sidebar-menu">
 
 
-        {{-- ANGGOTA --}}
-        <a href="{{ route('admin.anggota.index') }}"
-           class="{{ request()->routeIs('admin.anggota.*') ? 'active' : '' }}">
-
-            <i class="bi bi-people"></i>
-            <span>Anggota</span>
-
-        </a>
+            <div class="menu-label">
+                Menu Utama
+            </div>
 
 
-        {{-- BERITA --}}
-        <a href="{{ route('admin.berita.index') }}"
-           class="{{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+            <!-- Dashboard -->
 
-            <i class="bi bi-newspaper"></i>
-            <span>Berita</span>
+            <a
+                href="{{ route('admin.dashboard') }}"
+                class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+            >
 
-        </a>
+                <i class="bi bi-grid-1x2-fill"></i>
 
+                <span>
+                    Dashboard
+                </span>
 
-        {{-- KATEGORI BERITA --}}
-        <a href="{{ route('admin.kategori-berita.index') }}"
-           class="{{ request()->routeIs('admin.kategori-berita.*') ? 'active' : '' }}">
-
-            <i class="bi bi-tags"></i>
-            <span>Kategori Berita</span>
-
-        </a>
+            </a>
 
 
-        {{-- KEGIATAN --}}
-        <a href="{{ route('admin.kegiatan.index') }}"
-           class="{{ request()->routeIs('admin.kegiatan.*') ? 'active' : '' }}">
+            <!-- Anggota -->
 
-            <i class="bi bi-calendar-event"></i>
-            <span>Kegiatan</span>
+            <a
+                href="{{ route('admin.anggota.index') }}"
+                class="{{ request()->routeIs('admin.anggota.*') ? 'active' : '' }}"
+            >
 
-        </a>
+                <i class="bi bi-people-fill"></i>
 
+                <span>
+                    Anggota
+                </span>
 
-        {{-- GALERI --}}
-        <a href="{{ route('admin.galeri.index') }}"
-           class="{{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
-
-            <i class="bi bi-images"></i>
-            <span>Galeri</span>
-
-        </a>
+            </a>
 
 
-        {{-- PENGURUS --}}
-        <a href="{{ route('admin.pengurus.index') }}"
-           class="{{ request()->routeIs('admin.pengurus.*') ? 'active' : '' }}">
+            <!-- Berita -->
 
-            <i class="bi bi-person-badge"></i>
-            <span>Pengurus</span>
+            <a
+                href="{{ route('admin.berita.index') }}"
+                class="{{ request()->routeIs('admin.berita.*') ? 'active' : '' }}"
+            >
 
-        </a>
+                <i class="bi bi-newspaper"></i>
 
+                <span>
+                    Berita
+                </span>
 
-        {{-- PESAN --}}
-        <a href="{{ route('admin.pesan.index') }}"
-           class="{{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
-
-            <i class="bi bi-envelope"></i>
-            <span>Pesan</span>
-
-        </a>
+            </a>
 
 
-        {{-- PENDAFTARAN --}}
-        <a href="{{ route('admin.pendaftaran.index') }}"
-           class="{{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
+            <!-- Kategori Berita -->
 
-            <i class="bi bi-person-plus"></i>
-            <span>Pendaftaran</span>
+            <a
+                href="{{ route('admin.kategori-berita.index') }}"
+                class="{{ request()->routeIs('admin.kategori-berita.*') ? 'active' : '' }}"
+            >
 
-        </a>
+                <i class="bi bi-tags-fill"></i>
+
+                <span>
+                    Kategori Berita
+                </span>
+
+            </a>
 
 
-        {{-- LOGOUT --}}
-        <div class="p-3 mt-3">
+            <!-- Kegiatan -->
 
-            <form action="{{ route('logout') }}" method="POST">
+            <a
+                href="{{ route('admin.kegiatan.index') }}"
+                class="{{ request()->routeIs('admin.kegiatan.*') ? 'active' : '' }}"
+            >
 
-                @csrf
+                <i class="bi bi-calendar-event-fill"></i>
 
-                <button
-                    class="btn btn-danger w-100"
-                    type="submit">
+                <span>
+                    Kegiatan
+                </span>
 
-                    <i class="bi bi-box-arrow-right me-1"></i>
-                    Logout
+            </a>
 
-                </button>
 
-            </form>
+            <!-- Galeri -->
+
+            <a
+                href="{{ route('admin.galeri.index') }}"
+                class="{{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}"
+            >
+
+                <i class="bi bi-images"></i>
+
+                <span>
+                    Galeri
+                </span>
+
+            </a>
+
+
+            <!-- Pengurus -->
+
+            <a
+                href="{{ route('admin.pengurus.index') }}"
+                class="{{ request()->routeIs('admin.pengurus.*') ? 'active' : '' }}"
+            >
+
+                <i class="bi bi-diagram-3-fill"></i>
+
+                <span>
+                    Struktur Pengurus
+                </span>
+
+            </a>
+
+
+            <div class="sidebar-divider"></div>
+
+
+            <div class="menu-label">
+                Komunikasi
+            </div>
+
+
+            <!-- Pesan -->
+
+            <a
+                href="{{ route('admin.pesan.index') }}"
+                class="{{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}"
+            >
+
+                <i class="bi bi-chat-left-text-fill"></i>
+
+                <span>
+                    Pesan
+                </span>
+
+
+                @if(isset($pesanBelumDibaca) && $pesanBelumDibaca > 0)
+
+                    <span
+                        class="badge rounded-pill bg-danger ms-auto"
+                        style="font-size:9px;"
+                    >
+                        {{ $pesanBelumDibaca }}
+                    </span>
+
+                @endif
+
+            </a>
+
+
+            <!-- Pendaftaran -->
+
+            <a
+                href="{{ route('admin.pendaftaran.index') }}"
+                class="{{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}"
+            >
+
+                <i class="bi bi-person-plus-fill"></i>
+
+                <span>
+                    Pendaftaran
+                </span>
+
+
+                @if(isset($pendaftaranMenunggu) && $pendaftaranMenunggu > 0)
+
+                    <span
+                        class="badge rounded-pill bg-warning text-dark ms-auto"
+                        style="font-size:9px;"
+                    >
+                        {{ $pendaftaranMenunggu }}
+                    </span>
+
+                @endif
+
+            </a>
+
+
+            <div class="sidebar-divider"></div>
+
+
+            <!-- LOGOUT -->
+
+            <div class="sidebar-logout">
+
+                <form
+                    action="{{ route('logout') }}"
+                    method="POST"
+                >
+
+                    @csrf
+
+                    <button type="submit">
+
+                        <i class="bi bi-box-arrow-left"></i>
+
+                        <span>
+                            Keluar
+                        </span>
+
+                    </button>
+
+                </form>
+
+            </div>
+
 
         </div>
 
     </aside>
 
 
-    {{-- =====================================================
-         OVERLAY MOBILE
-    ====================================================== --}}
+    <!-- =========================================
+         MAIN
+    ========================================== -->
 
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <main class="admin-main">
 
 
-    {{-- =====================================================
-         MAIN CONTENT
-    ====================================================== --}}
+        <!-- =========================================
+             TOPBAR
+        ========================================== -->
 
-    <main class="main-content">
+        <header class="admin-topbar">
 
-        {{-- NAVBAR --}}
-        <div class="navbar-custom d-flex justify-content-between align-items-center">
 
-            <div class="d-flex align-items-center gap-2">
+            <div class="topbar-left">
+
+
+                <!-- MOBILE MENU -->
 
                 <button
                     type="button"
-                    class="btn btn-light sidebar-toggle d-lg-none"
-                    id="sidebarToggle">
+                    class="mobile-menu-btn"
+                    onclick="toggleSidebar()"
+                >
 
-                    <i class="bi bi-list fs-4"></i>
+                    <i class="bi bi-list fs-5"></i>
 
                 </button>
 
-                <strong>
-                    @yield('title', 'Dashboard')
-                </strong>
+
+                <div>
+
+                    <div class="page-heading">
+
+                        @yield('title', 'Dashboard')
+
+                    </div>
+
+
+                    <div class="page-breadcrumb">
+
+                        Portal Admin · MAPALA Giril Lokal Paksi
+
+                    </div>
+
+                </div>
+
 
             </div>
 
 
-            {{-- USER --}}
-            <div>
+            <div class="topbar-right">
 
-                <i class="bi bi-person-circle me-1"></i>
 
-                {{ Auth::user()->name ?? 'Admin' }}
+                <!-- NOTIFICATION -->
+
+                <button
+                    type="button"
+                    class="notification-btn"
+                    title="Notifikasi"
+                >
+
+                    <i class="bi bi-bell"></i>
+
+
+                    @if(
+                        (isset($pesanBelumDibaca) && $pesanBelumDibaca > 0) ||
+                        (isset($pendaftaranMenunggu) && $pendaftaranMenunggu > 0)
+                    )
+
+                        <span class="notification-dot"></span>
+
+                    @endif
+
+                </button>
+
+
+                <!-- PROFILE -->
+
+                <div class="admin-profile">
+
+
+                    <div class="admin-avatar">
+
+                        {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+
+                    </div>
+
+
+                    <div class="admin-info">
+
+
+                        <div class="admin-name">
+
+                            {{ Auth::user()->name ?? 'Administrator' }}
+
+                        </div>
+
+
+                        <div class="admin-role">
+
+                            Administrator
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
 
             </div>
 
-        </div>
+
+        </header>
 
 
-        {{-- =====================================================
-             CONTENT SETIAP HALAMAN
-        ====================================================== --}}
+        <!-- =========================================
+             CONTENT
+        ========================================== -->
 
-        <div class="content">
+        <section class="admin-content">
+
+
+            <!-- SUCCESS -->
+
+            @if(session('success'))
+
+                <div
+                    class="alert alert-success alert-dismissible fade show mb-4"
+                >
+
+                    <i class="bi bi-check-circle-fill me-2"></i>
+
+                    {{ session('success') }}
+
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                    ></button>
+
+                </div>
+
+            @endif
+
+
+            <!-- ERROR -->
+
+            @if(session('error'))
+
+                <div
+                    class="alert alert-danger alert-dismissible fade show mb-4"
+                >
+
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+
+                    {{ session('error') }}
+
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                    ></button>
+
+                </div>
+
+            @endif
+
 
             @yield('content')
 
-        </div>
+
+        </section>
+
 
     </main>
 
 
-    {{-- BOOTSTRAP --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- =========================================
+         BOOTSTRAP JS
+    ========================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 
-    {{-- =====================================================
-         SIDEBAR MOBILE
-    ====================================================== --}}
+    <!-- =========================================
+         SIDEBAR JS
+    ========================================== -->
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
+        function toggleSidebar() {
 
             const sidebar =
                 document.getElementById('adminSidebar');
 
-            const toggle =
-                document.getElementById('sidebarToggle');
+            const overlay =
+                document.getElementById('sidebarOverlay');
+
+            sidebar.classList.toggle('show');
+
+            overlay.classList.toggle('show');
+
+        }
+
+
+        function closeSidebar() {
+
+            const sidebar =
+                document.getElementById('adminSidebar');
 
             const overlay =
                 document.getElementById('sidebarOverlay');
 
+            sidebar.classList.remove('show');
 
-            if (!sidebar || !toggle) {
-                return;
-            }
+            overlay.classList.remove('show');
 
-
-            toggle.addEventListener('click', function (event) {
-
-                event.preventDefault();
-                event.stopPropagation();
-
-                sidebar.classList.toggle('mobile-open');
-
-                if (overlay) {
-                    overlay.classList.toggle('show');
-                }
-
-            });
+        }
 
 
-            if (overlay) {
+        // Tutup sidebar ketika klik menu di HP
 
-                overlay.addEventListener('click', function () {
+        document
+            .querySelectorAll('.admin-sidebar a')
+            .forEach(function(link) {
 
-                    sidebar.classList.remove('mobile-open');
+                link.addEventListener('click', function() {
 
-                    overlay.classList.remove('show');
+                    if (window.innerWidth <= 991) {
 
-                });
-
-            }
-
-
-            window.addEventListener('resize', function () {
-
-                if (window.innerWidth > 991.98) {
-
-                    sidebar.classList.remove('mobile-open');
-
-                    if (overlay) {
-                        overlay.classList.remove('show');
-                    }
-
-                }
-
-            });
-
-
-            /* Tutup sidebar setelah memilih menu di HP */
-            document.querySelectorAll('.sidebar a').forEach(function (link) {
-
-                link.addEventListener('click', function () {
-
-                    if (window.innerWidth <= 991.98) {
-
-                        sidebar.classList.remove('mobile-open');
-
-                        if (overlay) {
-                            overlay.classList.remove('show');
-                        }
+                        closeSidebar();
 
                     }
 
                 });
 
             });
-
-        });
 
     </script>
 
 
     @stack('scripts')
+
 
 </body>
 

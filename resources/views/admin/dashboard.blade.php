@@ -4,767 +4,875 @@
 
 @section('content')
 
+@php
+\Carbon\Carbon::setLocale('id');
+@endphp
+
 <style>
-    .dashboard-page {
-        color: #1d2b25;
+    .dashboard-wrapper {
+        width: 100%;
     }
 
-    /* =========================
+    /* ================================
        HERO
-    ========================= */
-    .welcome-card {
-        background: linear-gradient(135deg, #123b2a 0%, #1f6749 100%);
-        border-radius: 22px;
-        padding: 35px 38px;
-        color: white;
-        margin-bottom: 28px;
+    ================================= */
+
+    .dashboard-hero {
         position: relative;
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(18, 59, 42, .16);
+        border-radius: 22px;
+        padding: 34px;
+        margin-bottom: 26px;
+        background: linear-gradient(135deg, #12372a 0%, #185c42 55%, #247a55 100%);
+        color: #fff;
+        box-shadow: 0 15px 35px rgba(18, 55, 42, .18);
     }
 
-    .welcome-card::after {
+    .dashboard-hero::before {
         content: "";
         position: absolute;
-        width: 260px;
-        height: 260px;
+        width: 300px;
+        height: 300px;
         border-radius: 50%;
+        right: -100px;
+        top: -150px;
         background: rgba(255,255,255,.06);
-        right: -80px;
-        top: -100px;
     }
 
-    .welcome-card::before {
+    .dashboard-hero::after {
         content: "";
         position: absolute;
-        width: 150px;
-        height: 150px;
+        width: 190px;
+        height: 190px;
         border-radius: 50%;
+        right: 120px;
+        bottom: -130px;
         background: rgba(255,255,255,.04);
-        right: 150px;
-        bottom: -100px;
     }
 
-    .welcome-content {
+    .hero-content {
         position: relative;
         z-index: 2;
     }
 
-    .welcome-small {
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 1px;
+    .hero-label {
+        font-size: 12px;
         text-transform: uppercase;
-        opacity: .8;
-        margin-bottom: 10px;
-    }
-
-    .welcome-title {
-        font-size: 32px;
-        line-height: 1.25;
+        letter-spacing: 1.5px;
+        color: #a7f3d0;
         font-weight: 800;
-        margin-bottom: 10px;
+        margin-bottom: 9px;
     }
 
-    .welcome-text {
-        font-size: 15px;
+    .hero-title {
+        font-size: 29px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+
+    .hero-description {
+        max-width: 750px;
+        color: rgba(255,255,255,.78);
+        font-size: 13px;
         line-height: 1.7;
-        max-width: 700px;
-        color: rgba(255,255,255,.82);
-        margin-bottom: 18px;
+        margin: 0;
     }
 
-    .date-badge {
+    .hero-date {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 9px 15px;
-        border-radius: 30px;
-        background: rgba(255,255,255,.12);
+        margin-top: 18px;
+        padding: 10px 16px;
+        border-radius: 11px;
+        background: rgba(255,255,255,.10);
         border: 1px solid rgba(255,255,255,.12);
-        font-size: 13px;
+        color: #d1fae5;
+        font-size: 12px;
+        font-weight: 700;
     }
 
-    /* =========================
-       STATISTIK
-    ========================= */
+    /* ================================
+       STATISTIC
+    ================================= */
+
     .stat-card {
-        background: white;
-        border: 1px solid #e8eeeb;
-        border-radius: 18px;
-        padding: 25px;
+        position: relative;
         height: 100%;
-        box-shadow: 0 5px 20px rgba(0,0,0,.04);
-        transition: .25s ease;
+        background: #fff;
+        border: 1px solid #e5ebe8;
+        border-radius: 18px;
+        padding: 22px;
+        transition: all .25s ease;
+        overflow: hidden;
     }
 
     .stat-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 28px rgba(0,0,0,.08);
+        box-shadow: 0 14px 30px rgba(15,23,42,.08);
+        border-color: #d4e4dc;
+    }
+
+    .stat-card::after {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        right: -40px;
+        bottom: -45px;
+        background: rgba(22,101,52,.04);
+    }
+
+    .stat-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
     }
 
     .stat-icon {
-        width: 58px;
-        height: 58px;
-        border-radius: 16px;
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 26px;
-        margin-bottom: 20px;
+        font-size: 21px;
     }
 
     .stat-icon.green {
-        background: #e5f5ec;
-        color: #198754;
+        background: #dcfce7;
+        color: #15803d;
     }
 
     .stat-icon.blue {
-        background: #e8f1ff;
-        color: #0d6efd;
+        background: #dbeafe;
+        color: #2563eb;
     }
 
     .stat-icon.orange {
-        background: #fff1df;
-        color: #fd7e14;
+        background: #ffedd5;
+        color: #ea580c;
     }
 
     .stat-icon.purple {
-        background: #f0e9ff;
-        color: #6f42c1;
+        background: #f3e8ff;
+        color: #9333ea;
     }
 
-    .stat-content span {
-        display: block;
-        color: #74817b;
+    .stat-label {
+        margin-top: 17px;
+        color: #64748b;
         font-size: 13px;
         font-weight: 600;
-        margin-bottom: 6px;
     }
 
-    .stat-content h3 {
-        color: #17251f;
-        font-size: 34px;
-        line-height: 1;
+    .stat-number {
+        margin-top: 4px;
+        font-size: 30px;
+        line-height: 1.2;
         font-weight: 800;
-        margin: 0;
+        color: #172b22;
     }
 
-    .stat-content small {
-        display: block;
-        margin-top: 12px;
-        color: #8b9691;
-        font-size: 12px;
-    }
-
-    /* =========================
-       PANEL
-    ========================= */
-    .content-card {
-        background: white;
-        border: 1px solid #e8eeeb;
-        border-radius: 18px;
-        box-shadow: 0 5px 20px rgba(0,0,0,.04);
-        overflow: hidden;
-        height: 100%;
-    }
-
-    .content-header {
-        padding: 22px 25px;
-        border-bottom: 1px solid #edf1ef;
-    }
-
-    .content-title {
-        font-size: 18px;
-        font-weight: 800;
-        color: #1b2923;
-        margin: 0;
-    }
-
-    .content-subtitle {
-        color: #89958f;
-        font-size: 13px;
-        margin-top: 5px;
-        margin-bottom: 0;
-    }
-
-    .content-body {
-        padding: 25px;
-    }
-
-    /* =========================
-       RINGKASAN
-    ========================= */
-    .summary-item {
-        display: flex;
+    .stat-link {
+        display: inline-flex;
         align-items: center;
+        gap: 6px;
+        margin-top: 11px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #166534;
+    }
+
+    .stat-link:hover {
+        color: #0f5132;
+    }
+
+    /* ================================
+       SECTION
+    ================================= */
+
+    .dashboard-section {
+        margin-top: 27px;
+    }
+
+    .section-heading {
+        display: flex;
         justify-content: space-between;
-        padding: 15px 0;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .section-title {
+        font-size: 17px;
+        font-weight: 800;
+        color: #173c2e;
+        margin: 0;
+    }
+
+    .section-subtitle {
+        color: #94a3b8;
+        font-size: 11px;
+        margin-top: 4px;
+    }
+
+    /* ================================
+       PANEL
+    ================================= */
+
+    .dashboard-panel {
+        height: 100%;
+        background: #fff;
+        border: 1px solid #e5ebe8;
+        border-radius: 18px;
+        overflow: hidden;
+    }
+
+    .panel-header {
+        min-height: 72px;
+        padding: 18px 21px;
         border-bottom: 1px solid #edf1ef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .panel-title {
+        font-size: 14px;
+        font-weight: 800;
+        color: #173c2e;
+        margin: 0;
+    }
+
+    .panel-header a {
+        white-space: nowrap;
+        font-size: 11px;
+        font-weight: 700;
+        color: #15803d;
+    }
+
+    .panel-header a:hover {
+        color: #0f5132;
+    }
+
+    .panel-body {
+        padding: 20px 21px;
+    }
+
+    /* ================================
+       SUMMARY
+    ================================= */
+
+    .summary-item {
+        padding: 14px 0;
+        border-bottom: 1px solid #edf1ef;
+    }
+
+    .summary-item:first-child {
+        padding-top: 0;
     }
 
     .summary-item:last-child {
         border-bottom: 0;
+        padding-bottom: 0;
     }
 
-    .summary-left {
+    .summary-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .summary-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #64748b;
+    }
+
+    .summary-label i {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9px;
+        background: #ecfdf5;
+        color: #15803d;
+    }
+
+    .summary-number {
+        font-size: 16px;
+        font-weight: 800;
+        color: #173c2e;
+    }
+
+    /* ================================
+       DATA LIST
+    ================================= */
+
+    .data-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .data-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 14px 0;
+        border-bottom: 1px solid #edf1ef;
+    }
+
+    .data-item:first-child {
+        padding-top: 0;
+    }
+
+    .data-item:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .data-left {
+        min-width: 0;
         display: flex;
         align-items: center;
         gap: 12px;
     }
 
-    .summary-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        background: #e8f5ee;
-        color: #198754;
+    .data-icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+        background: #ecfdf5;
+        color: #15803d;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 16px;
     }
 
-    .summary-name {
-        font-size: 14px;
-        font-weight: 700;
-        color: #36443e;
+    .data-info {
+        min-width: 0;
     }
 
-    .summary-info {
-        font-size: 11px;
-        color: #909b96;
-        margin-top: 2px;
-    }
-
-    .summary-number {
-        font-size: 18px;
-        font-weight: 800;
-        color: #1d2b25;
-    }
-
-    /* =========================
-       PENDAFTARAN
-    ========================= */
-    .registration-item {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 16px 0;
-        border-bottom: 1px solid #edf1ef;
-    }
-
-    .registration-item:last-child {
-        border-bottom: 0;
-    }
-
-    .avatar {
-        width: 46px;
-        height: 46px;
-        min-width: 46px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #e5f5ec;
-        color: #198754;
-        font-size: 15px;
-        font-weight: 800;
-    }
-
-    .registration-name {
-        font-size: 14px;
-        font-weight: 700;
-        color: #293630;
-    }
-
-    .registration-email {
+    .data-name {
         font-size: 12px;
-        color: #8d9893;
-        margin-top: 3px;
-    }
-
-    .registration-date {
-        margin-left: auto;
-        color: #89958f;
-        font-size: 12px;
+        font-weight: 700;
+        color: #334155;
         white-space: nowrap;
-    }
-
-    .empty-box {
-        text-align: center;
-        padding: 40px 15px;
-        color: #89958f;
-    }
-
-    .empty-box i {
-        font-size: 42px;
-        opacity: .5;
-        margin-bottom: 12px;
-    }
-
-    /* =========================
-       STATUS
-    ========================= */
-    .status-box {
-        background: #f8faf9;
-        border-radius: 14px;
-        padding: 17px;
-        margin-bottom: 15px;
-    }
-
-    .status-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 9px;
-    }
-
-    .status-title {
-        font-size: 13px;
-        font-weight: 700;
-        color: #34423c;
-    }
-
-    .status-number {
-        font-size: 13px;
-        font-weight: 800;
-        color: #198754;
-    }
-
-    .custom-progress {
-        height: 8px;
-        border-radius: 20px;
-        background: #e5ebe8;
         overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 350px;
     }
 
-    .custom-progress-bar {
-        height: 100%;
-        border-radius: 20px;
-        background: linear-gradient(90deg, #198754, #52ad7e);
-    }
-
-    /* =========================
-       AKSES CEPAT
-    ========================= */
-    .quick-card {
+    .data-date {
         display: flex;
         align-items: center;
-        gap: 15px;
-        padding: 18px;
-        border-radius: 15px;
-        border: 1px solid #e8eeeb;
-        text-decoration: none;
-        color: #26342e;
+        margin-top: 5px;
+        color: #64748b;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .data-date i {
+        color: #15803d;
+        font-size: 10px;
+    }
+
+    /* ================================
+       QUICK ACCESS
+    ================================= */
+
+    .quick-card {
         height: 100%;
-        transition: .2s;
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        padding: 16px;
+        border: 1px solid #e5ebe8;
+        background: #fff;
+        border-radius: 15px;
+        color: #1e293b;
+        transition: all .22s ease;
     }
 
     .quick-card:hover {
-        background: #f7fbf8;
-        border-color: #a9d4bd;
-        color: #198754;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        border-color: #b7d8c5;
+        box-shadow: 0 10px 22px rgba(15,23,42,.06);
+        color: #166534;
     }
 
     .quick-icon {
-        width: 46px;
-        height: 46px;
-        min-width: 46px;
-        border-radius: 13px;
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #e7f5ed;
-        color: #198754;
-        font-size: 20px;
+        background: #ecfdf5;
+        color: #15803d;
+        font-size: 19px;
     }
 
     .quick-title {
-        font-size: 14px;
-        font-weight: 700;
+        font-size: 12px;
+        font-weight: 800;
+        margin-bottom: 4px;
     }
 
     .quick-text {
-        font-size: 12px;
-        color: #8a9690;
-        margin-top: 4px;
+        color: #94a3b8;
+        font-size: 10px;
     }
 
-    /* =========================
+    /* ================================
+       EMPTY
+    ================================= */
+
+    .empty-state {
+        text-align: center;
+        padding: 30px 10px;
+        color: #94a3b8;
+    }
+
+    .empty-state i {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 30px;
+    }
+
+    .empty-state p {
+        font-size: 11px;
+        margin: 0;
+    }
+
+    /* ================================
        RESPONSIVE
-    ========================= */
-    @media(max-width: 768px) {
+    ================================= */
 
-        .welcome-card {
-            padding: 25px;
-            border-radius: 18px;
+    @media (max-width: 991px) {
+
+        .hero-title {
+            font-size: 25px;
         }
 
-        .welcome-title {
-            font-size: 24px;
+        .data-name {
+            max-width: 260px;
+        }
+    }
+
+    @media (max-width: 768px) {
+
+        .dashboard-hero {
+            padding: 27px 22px;
         }
 
-        .welcome-text {
-            font-size: 13px;
+        .hero-title {
+            font-size: 22px;
+        }
+
+        .hero-description {
+            font-size: 12px;
+        }
+
+        .hero-date {
+            font-size: 11px;
         }
 
         .stat-card {
             padding: 20px;
         }
 
-        .stat-content h3 {
-            font-size: 29px;
+        .stat-number {
+            font-size: 27px;
         }
 
-        .content-header,
-        .content-body {
-            padding: 18px;
+        .data-name {
+            max-width: 200px;
+        }
+    }
+
+    @media (max-width: 576px) {
+
+        .dashboard-hero {
+            border-radius: 17px;
+            padding: 23px 18px;
         }
 
-        .registration-date {
-            display: none;
+        .hero-label {
+            font-size: 10px;
+        }
+
+        .hero-title {
+            font-size: 20px;
+        }
+
+        .hero-description {
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .hero-date {
+            width: 100%;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .section-title {
+            font-size: 15px;
+        }
+
+        .panel-header {
+            padding: 16px;
+        }
+
+        .panel-body {
+            padding: 17px;
+        }
+
+        .data-name {
+            max-width: 155px;
+        }
+
+        .data-item {
+            gap: 8px;
+        }
+
+        .quick-card {
+            min-height: 70px;
         }
     }
 </style>
 
+<div class="dashboard-wrapper">
 
-<div class="dashboard-page">
+```
+{{-- =========================================
+     HERO
+========================================== --}}
 
-    {{-- ============================
-         HEADER
-    ============================= --}}
-    <div class="welcome-card">
+<div class="dashboard-hero">
 
-        <div class="welcome-content">
+    <div class="hero-content">
 
-            <div class="welcome-small">
-                <i class="bi bi-speedometer2 me-1"></i>
-                Dashboard Administrator
-            </div>
+        <div class="hero-label">
+            <i class="bi bi-speedometer2 me-1"></i>
+            Admin Dashboard
+        </div>
 
-            <div class="welcome-title">
-                Selamat Datang,
-                {{ Auth::user()->name ?? 'Administrator' }} 👋
-            </div>
+        <div class="hero-title">
+            Selamat Datang, {{ Auth::user()->name ?? 'Administrator' }} 👋
+        </div>
 
-            <p class="welcome-text">
-                Kelola data, berita, kegiatan, anggota, dan informasi
-                organisasi MAPALA Giril Lokal Paksi melalui halaman
-                administrasi ini.
-            </p>
+        <p class="hero-description">
+            Kelola seluruh informasi Portal MAPALA Giril Lokal Paksi
+            melalui satu dashboard. Pantau anggota, berita, kegiatan,
+            galeri, pengurus, pendaftaran, dan pesan pengunjung.
+        </p>
 
-            <div class="date-badge">
-                <i class="bi bi-calendar3"></i>
+        {{-- TANGGAL HARI INI --}}
+        <div class="hero-date">
+            <i class="bi bi-calendar3 me-2"></i>
 
-                {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
-            </div>
-
+            {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
         </div>
 
     </div>
 
+</div>
 
-    {{-- ============================
-         STATISTIK UTAMA
-    ============================= --}}
-    <div class="row g-4 mb-4">
 
-        {{-- TOTAL ANGGOTA --}}
-        <div class="col-xl-3 col-md-6">
+{{-- =========================================
+     STATISTIK UTAMA
+========================================== --}}
 
-            <div class="stat-card">
+<div class="row g-3">
+
+    {{-- Anggota --}}
+    <div class="col-12 col-sm-6 col-xl-3">
+
+        <div class="stat-card">
+
+            <div class="stat-top">
 
                 <div class="stat-icon green">
                     <i class="bi bi-people-fill"></i>
                 </div>
 
-                <div class="stat-content">
-
-                    <span>Total Anggota</span>
-
-                    <h3>
-                        {{ $totalAnggota ?? 0 }}
-                    </h3>
-
-                    <small>
-                        Data anggota MAPALA
-                    </small>
-
-                </div>
-
             </div>
+
+            <div class="stat-label">
+                Total Anggota
+            </div>
+
+            <div class="stat-number">
+                {{ $jumlahAnggota ?? 0 }}
+            </div>
+
+            <a
+                href="{{ route('admin.anggota.index') }}"
+                class="stat-link"
+            >
+                Kelola anggota
+                <i class="bi bi-arrow-right"></i>
+            </a>
 
         </div>
 
+    </div>
 
-        {{-- TOTAL BERITA --}}
-        <div class="col-xl-3 col-md-6">
 
-            <div class="stat-card">
+    {{-- Berita --}}
+    <div class="col-12 col-sm-6 col-xl-3">
+
+        <div class="stat-card">
+
+            <div class="stat-top">
 
                 <div class="stat-icon blue">
                     <i class="bi bi-newspaper"></i>
                 </div>
 
-                <div class="stat-content">
-
-                    <span>Total Berita</span>
-
-                    <h3>
-                        {{ $totalBerita ?? 0 }}
-                    </h3>
-
-                    <small>
-                        Artikel berita
-                    </small>
-
-                </div>
-
             </div>
+
+            <div class="stat-label">
+                Total Berita
+            </div>
+
+            <div class="stat-number">
+                {{ $jumlahBerita ?? 0 }}
+            </div>
+
+            <a
+                href="{{ route('admin.berita.index') }}"
+                class="stat-link"
+            >
+                Kelola berita
+                <i class="bi bi-arrow-right"></i>
+            </a>
 
         </div>
 
+    </div>
 
-        {{-- TOTAL KATEGORI --}}
-        <div class="col-xl-3 col-md-6">
 
-            <div class="stat-card">
+    {{-- Kategori --}}
+    <div class="col-12 col-sm-6 col-xl-3">
 
-                <div class="stat-icon purple">
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon orange">
                     <i class="bi bi-tags-fill"></i>
                 </div>
 
-                <div class="stat-content">
-
-                    <span>Kategori Berita</span>
-
-                    <h3>
-                        {{ $totalKategoriBerita ?? 0 }}
-                    </h3>
-
-                    <small>
-                        Kategori artikel
-                    </small>
-
-                </div>
-
             </div>
+
+            <div class="stat-label">
+                Kategori Berita
+            </div>
+
+            <div class="stat-number">
+                {{ $totalKategoriBerita ?? 0 }}
+            </div>
+
+            <a
+                href="{{ route('admin.kategori-berita.index') }}"
+                class="stat-link"
+            >
+                Kelola kategori
+                <i class="bi bi-arrow-right"></i>
+            </a>
 
         </div>
 
+    </div>
 
-        {{-- TOTAL KEGIATAN --}}
-        <div class="col-xl-3 col-md-6">
 
-            <div class="stat-card">
+    {{-- Kegiatan --}}
+    <div class="col-12 col-sm-6 col-xl-3">
 
-                <div class="stat-icon orange">
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon purple">
                     <i class="bi bi-calendar-event-fill"></i>
                 </div>
 
-                <div class="stat-content">
-
-                    <span>Total Kegiatan</span>
-
-                    <h3>
-                        {{ $totalKegiatan ?? 0 }}
-                    </h3>
-
-                    <small>
-                        Agenda kegiatan
-                    </small>
-
-                </div>
-
             </div>
+
+            <div class="stat-label">
+                Total Kegiatan
+            </div>
+
+            <div class="stat-number">
+                {{ $jumlahKegiatan ?? 0 }}
+            </div>
+
+            <a
+                href="{{ route('admin.kegiatan.index') }}"
+                class="stat-link"
+            >
+                Kelola kegiatan
+                <i class="bi bi-arrow-right"></i>
+            </a>
 
         </div>
 
     </div>
 
-
-    {{-- ============================
-         RINGKASAN + STATUS
-    ============================= --}}
-    <div class="row g-4 mb-4">
+</div>
 
 
-        {{-- RINGKASAN PORTAL --}}
-        <div class="col-lg-7">
+{{-- =========================================
+     RINGKASAN + PENDAFTARAN
+========================================== --}}
 
-            <div class="content-card">
+<div class="dashboard-section">
 
-                <div class="content-header">
+    <div class="row g-3">
 
-                    <h5 class="content-title">
+        {{-- Ringkasan --}}
+        <div class="col-12 col-lg-5">
 
-                        <i class="bi bi-bar-chart-line-fill text-success me-2"></i>
+            <div class="dashboard-panel">
 
-                        Ringkasan Portal
+                <div class="panel-header">
 
-                    </h5>
+                    <div>
 
-                    <p class="content-subtitle">
-                        Informasi jumlah data yang tersedia di sistem.
-                    </p>
+                        <h5 class="panel-title">
+                            Ringkasan Sistem
+                        </h5>
+
+                        <div class="section-subtitle">
+                            Statistik data portal saat ini
+                        </div>
+
+                    </div>
 
                 </div>
 
 
-                <div class="content-body">
+                <div class="panel-body">
 
-
-                    {{-- ANGGOTA --}}
                     <div class="summary-item">
 
-                        <div class="summary-left">
+                        <div class="summary-row">
 
-                            <div class="summary-icon">
+                            <div class="summary-label">
                                 <i class="bi bi-people-fill"></i>
+                                Anggota
                             </div>
 
-                            <div>
-
-                                <div class="summary-name">
-                                    Anggota
-                                </div>
-
-                                <div class="summary-info">
-                                    Seluruh anggota terdaftar
-                                </div>
-
+                            <div class="summary-number">
+                                {{ $jumlahAnggota ?? 0 }}
                             </div>
 
-                        </div>
-
-                        <div class="summary-number">
-                            {{ $totalAnggota ?? 0 }}
                         </div>
 
                     </div>
 
 
-                    {{-- BERITA --}}
                     <div class="summary-item">
 
-                        <div class="summary-left">
+                        <div class="summary-row">
 
-                            <div class="summary-icon">
+                            <div class="summary-label">
                                 <i class="bi bi-newspaper"></i>
+                                Berita
                             </div>
 
-                            <div>
-
-                                <div class="summary-name">
-                                    Berita
-                                </div>
-
-                                <div class="summary-info">
-                                    Informasi organisasi
-                                </div>
-
+                            <div class="summary-number">
+                                {{ $jumlahBerita ?? 0 }}
                             </div>
 
-                        </div>
-
-                        <div class="summary-number">
-                            {{ $totalBerita ?? 0 }}
                         </div>
 
                     </div>
 
 
-                    {{-- KATEGORI BERITA --}}
                     <div class="summary-item">
 
-                        <div class="summary-left">
+                        <div class="summary-row">
 
-                            <div class="summary-icon">
+                            <div class="summary-label">
                                 <i class="bi bi-tags-fill"></i>
+                                Kategori Berita
                             </div>
 
-                            <div>
-
-                                <div class="summary-name">
-                                    Kategori Berita
-                                </div>
-
-                                <div class="summary-info">
-                                    Kategori artikel berita
-                                </div>
-
+                            <div class="summary-number">
+                                {{ $totalKategoriBerita ?? 0 }}
                             </div>
 
-                        </div>
-
-                        <div class="summary-number">
-                            {{ $totalKategoriBerita ?? 0 }}
                         </div>
 
                     </div>
 
 
-                    {{-- KEGIATAN --}}
                     <div class="summary-item">
 
-                        <div class="summary-left">
+                        <div class="summary-row">
 
-                            <div class="summary-icon">
-                                <i class="bi bi-calendar-event"></i>
+                            <div class="summary-label">
+                                <i class="bi bi-calendar-event-fill"></i>
+                                Kegiatan
                             </div>
 
-                            <div>
-
-                                <div class="summary-name">
-                                    Kegiatan
-                                </div>
-
-                                <div class="summary-info">
-                                    Agenda dan kegiatan MAPALA
-                                </div>
-
+                            <div class="summary-number">
+                                {{ $jumlahKegiatan ?? 0 }}
                             </div>
 
-                        </div>
-
-                        <div class="summary-number">
-                            {{ $totalKegiatan ?? 0 }}
                         </div>
 
                     </div>
 
 
-                    {{-- PENGURUS --}}
                     <div class="summary-item">
 
-                        <div class="summary-left">
+                        <div class="summary-row">
 
-                            <div class="summary-icon">
-                                <i class="bi bi-diagram-3"></i>
+                            <div class="summary-label">
+                                <i class="bi bi-diagram-3-fill"></i>
+                                Pengurus
                             </div>
 
-                            <div>
-
-                                <div class="summary-name">
-                                    Pengurus
-                                </div>
-
-                                <div class="summary-info">
-                                    Struktur kepengurusan
-                                </div>
-
+                            <div class="summary-number">
+                                {{ $jumlahPengurus ?? 0 }}
                             </div>
 
-                        </div>
-
-                        <div class="summary-number">
-                            {{ $totalPengurus ?? 0 }}
                         </div>
 
                     </div>
 
+
+                    <div class="summary-item">
+
+                        <div class="summary-row">
+
+                            <div class="summary-label">
+                                <i class="bi bi-person-plus-fill"></i>
+                                Pendaftaran
+                            </div>
+
+                            <div class="summary-number">
+                                {{ $jumlahPendaftaran ?? 0 }}
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -773,260 +881,111 @@
         </div>
 
 
-        {{-- STATUS PENDAFTARAN --}}
-        <div class="col-lg-5">
+        {{-- Pendaftaran --}}
+        <div class="col-12 col-lg-7">
 
-            <div class="content-card">
+            <div class="dashboard-panel">
 
-                <div class="content-header">
+                <div class="panel-header">
 
-                    <h5 class="content-title">
+                    <div>
 
-                        <i class="bi bi-person-plus-fill text-success me-2"></i>
+                        <h5 class="panel-title">
+                            Pendaftaran Terbaru
+                        </h5>
 
-                        Status Pendaftaran
+                        <div class="section-subtitle">
+                            Data calon anggota terbaru
+                        </div>
 
-                    </h5>
+                    </div>
 
-                    <p class="content-subtitle">
-                        Informasi pendaftaran anggota baru.
-                    </p>
+                    <a href="{{ route('admin.pendaftaran.index') }}">
+                        Lihat semua
+                    </a>
 
                 </div>
 
 
-                <div class="content-body">
-
-                    @php
-
-                        $totalDaftar = $totalPendaftaran ?? 0;
-
-                        $menunggu = $pendaftaranMenunggu ?? 0;
-
-                        $persenMenunggu = $totalDaftar > 0
-                            ? ($menunggu / $totalDaftar) * 100
-                            : 0;
-
-                    @endphp
-
-
-                    {{-- MENUNGGU --}}
-                    <div class="status-box">
-
-                        <div class="status-top">
-
-                            <div class="status-title">
-                                Pendaftaran Menunggu
-                            </div>
-
-                            <div class="status-number">
-                                {{ $menunggu }}
-                            </div>
-
-                        </div>
-
-
-                        <div class="custom-progress">
-
-                            <div
-                                class="custom-progress-bar"
-                                style="width: {{ min($persenMenunggu, 100) }}%;"
-                            ></div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- TOTAL --}}
-                    <div class="status-box">
-
-                        <div class="status-top">
-
-                            <div class="status-title">
-                                Total Pendaftaran
-                            </div>
-
-                            <div class="status-number">
-                                {{ $totalDaftar }}
-                            </div>
-
-                        </div>
-
-
-                        <div class="custom-progress">
-
-                            <div
-                                class="custom-progress-bar"
-                                style="width: {{ $totalDaftar > 0 ? 100 : 0 }}%;"
-                            ></div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- INFO --}}
-                    <div
-                        class="p-3 rounded-3"
-                        style="background:#eaf7ef;"
-                    >
-
-                        <div class="d-flex gap-3 align-items-center">
-
-                            <i class="bi bi-info-circle-fill text-success fs-4"></i>
-
-                            <div>
-
-                                <div class="fw-bold text-success">
-                                    Perlu diperiksa
-                                </div>
-
-                                <div
-                                    class="small"
-                                    style="color:#527064;"
-                                >
-
-                                    {{ $menunggu }}
-
-                                    pendaftaran menunggu proses.
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    {{-- ============================
-         PENDAFTARAN TERBARU
-    ============================= --}}
-    <div class="row g-4 mb-4">
-
-        <div class="col-12">
-
-            <div class="content-card">
-
-                <div class="content-header">
-
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div>
-
-                            <h5 class="content-title">
-
-                                <i class="bi bi-person-lines-fill text-success me-2"></i>
-
-                                Pendaftaran Terbaru
-
-                            </h5>
-
-                            <p class="content-subtitle">
-                                Daftar anggota yang baru melakukan pendaftaran.
-                            </p>
-
-                        </div>
-
-
-                        @if(Route::has('admin.pendaftaran.index'))
-
-                            <a
-                                href="{{ route('admin.pendaftaran.index') }}"
-                                class="btn btn-success rounded-pill px-4"
-                            >
-
-                                <i class="bi bi-eye me-1"></i>
-
-                                Lihat Semua
-
-                            </a>
-
-                        @endif
-
-                    </div>
-
-                </div>
-
-
-                <div class="content-body">
+                <div class="panel-body">
 
                     @if(isset($pendaftaranTerbaru) && $pendaftaranTerbaru->count())
 
-                        @foreach($pendaftaranTerbaru as $pendaftaran)
+                        <div class="data-list">
 
-                            @php
+                            @foreach($pendaftaranTerbaru as $pendaftaran)
 
-                                $nama = $pendaftaran->nama ?? 'Pendaftar';
+                                <div class="data-item">
 
-                            @endphp
+                                    <div class="data-left">
 
+                                        <div class="data-icon">
+                                            <i class="bi bi-person-plus-fill"></i>
+                                        </div>
 
-                            <div class="registration-item">
+                                        <div class="data-info">
 
-                                <div class="avatar">
+                                            <div class="data-name">
+                                                {{ $pendaftaran->nama ?? 'Pendaftar' }}
+                                            </div>
 
-                                    {{ strtoupper(substr($nama, 0, 1)) }}
+                                            <div class="data-date">
 
-                                </div>
+                                                <i class="bi bi-calendar3 me-1"></i>
 
+                                                @if($pendaftaran->created_at)
+                                                    {{ $pendaftaran->created_at->translatedFormat('d F Y') }}
+                                                @else
+                                                    -
+                                                @endif
 
-                                <div>
+                                            </div>
 
-                                    <div class="registration-name">
-                                        {{ $nama }}
+                                        </div>
+
                                     </div>
 
-                                    <div class="registration-email">
 
-                                        {{ $pendaftaran->email ?? 'Email tidak tersedia' }}
-
-                                    </div>
-
-                                </div>
+                                    @php
+                                        $status = strtolower($pendaftaran->status ?? 'menunggu');
+                                    @endphp
 
 
-                                <div class="registration-date">
+                                    @if($status === 'diterima')
 
-                                    @if($pendaftaran->created_at)
+                                        <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2">
+                                            Diterima
+                                        </span>
 
-                                        {{ $pendaftaran->created_at->format('d M Y') }}
+                                    @elseif($status === 'ditolak')
+
+                                        <span class="badge bg-danger-subtle text-danger rounded-pill px-3 py-2">
+                                            Ditolak
+                                        </span>
 
                                     @else
 
-                                        -
+                                        <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 py-2">
+                                            Menunggu
+                                        </span>
 
                                     @endif
 
                                 </div>
 
-                            </div>
+                            @endforeach
 
-                        @endforeach
+                        </div>
 
                     @else
 
-                        <div class="empty-box">
+                        <div class="empty-state">
 
-                            <i class="bi bi-inbox d-block"></i>
+                            <i class="bi bi-person-lines-fill"></i>
 
-                            <div class="fw-bold mb-1">
-                                Belum ada pendaftaran
-                            </div>
-
-                            <div class="small">
-                                Data pendaftaran anggota akan muncul di sini.
-                            </div>
+                            <p>
+                                Belum ada data pendaftaran.
+                            </p>
 
                         </div>
 
@@ -1040,184 +999,214 @@
 
     </div>
 
+</div>
 
-    {{-- ============================
-         AKSES CEPAT
-    ============================= --}}
-    <div class="row g-4">
 
-        <div class="col-12">
+{{-- =========================================
+     BERITA + KEGIATAN
+========================================== --}}
 
-            <div class="content-card">
+<div class="dashboard-section">
 
-                <div class="content-header">
+    <div class="row g-3">
 
-                    <h5 class="content-title">
+        {{-- Berita --}}
+        <div class="col-12 col-lg-6">
 
-                        <i class="bi bi-lightning-charge-fill text-warning me-2"></i>
+            <div class="dashboard-panel">
 
-                        Akses Cepat
+                <div class="panel-header">
 
-                    </h5>
+                    <div>
 
-                    <p class="content-subtitle">
-                        Pilih menu yang ingin Anda kelola.
-                    </p>
+                        <h5 class="panel-title">
+                            Berita Terbaru
+                        </h5>
+
+                        <div class="section-subtitle">
+                            Publikasi terakhir
+                        </div>
+
+                    </div>
+
+                    <a href="{{ route('admin.berita.index') }}">
+                        Lihat semua
+                    </a>
 
                 </div>
 
 
-                <div class="content-body">
+                <div class="panel-body">
 
-                    <div class="row g-3">
+                    @if(isset($beritaTerbaru) && $beritaTerbaru->count())
 
+                        <div class="data-list">
 
-                        {{-- DATA ANGGOTA --}}
-                        <div class="col-12 col-md-6 col-xl-3">
+                            @foreach($beritaTerbaru as $berita)
 
-                            <a
-                                href="{{ route('admin.anggota.index') }}"
-                                class="quick-card"
-                            >
+                                <div class="data-item">
 
-                                <div class="quick-icon">
-                                    <i class="bi bi-people-fill"></i>
-                                </div>
+                                    <div class="data-left">
 
-                                <div>
+                                        <div class="data-icon">
+                                            <i class="bi bi-newspaper"></i>
+                                        </div>
 
-                                    <div class="quick-title">
-                                        Data Anggota
+                                        <div class="data-info">
+
+                                            <div class="data-name">
+                                                {{ $berita->judul_berita ?? $berita->judul ?? 'Berita' }}
+                                            </div>
+
+                                            <div class="data-date">
+
+                                                <i class="bi bi-calendar3 me-1"></i>
+
+                                                @if($berita->created_at)
+                                                    {{ $berita->created_at->translatedFormat('d F Y') }}
+                                                @else
+                                                    -
+                                                @endif
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
 
-                                    <div class="quick-text">
-                                        Kelola data anggota MAPALA
-                                    </div>
+
+                                    @if(isset($berita->status))
+
+                                        <span
+                                            class="badge rounded-pill px-3 py-2
+                                            {{ strtolower($berita->status) === 'publish'
+                                                ? 'bg-success-subtle text-success'
+                                                : 'bg-secondary-subtle text-secondary' }}"
+                                        >
+                                            {{ $berita->status }}
+                                        </span>
+
+                                    @endif
 
                                 </div>
 
-                            </a>
+                            @endforeach
 
                         </div>
 
+                    @else
 
-                        {{-- BERITA --}}
-                        <div class="col-12 col-md-6 col-xl-3">
+                        <div class="empty-state">
 
-                            <a
-                                href="{{ route('admin.berita.index') }}"
-                                class="quick-card"
-                            >
+                            <i class="bi bi-newspaper"></i>
 
-                                <div class="quick-icon">
-                                    <i class="bi bi-newspaper"></i>
-                                </div>
-
-                                <div>
-
-                                    <div class="quick-title">
-                                        Berita
-                                    </div>
-
-                                    <div class="quick-text">
-                                        Kelola berita organisasi
-                                    </div>
-
-                                </div>
-
-                            </a>
+                            <p>
+                                Belum ada berita.
+                            </p>
 
                         </div>
 
+                    @endif
 
-                        {{-- KATEGORI BERITA --}}
-                        <div class="col-12 col-md-6 col-xl-3">
+                </div>
 
-                            <a
-                                href="{{ route('admin.kategori-berita.index') }}"
-                                class="quick-card"
-                            >
+            </div>
 
-                                <div class="quick-icon">
-                                    <i class="bi bi-tags-fill"></i>
-                                </div>
+        </div>
 
-                                <div>
 
-                                    <div class="quick-title">
-                                        Kategori Berita
-                                    </div>
+        {{-- Kegiatan --}}
+        <div class="col-12 col-lg-6">
 
-                                    <div class="quick-text">
-                                        Kelola kategori berita
-                                    </div>
+            <div class="dashboard-panel">
 
-                                </div>
+                <div class="panel-header">
 
-                            </a>
+                    <div>
 
+                        <h5 class="panel-title">
+                            Kegiatan Terbaru
+                        </h5>
+
+                        <div class="section-subtitle">
+                            Agenda kegiatan MAPALA
                         </div>
-
-
-                        {{-- KEGIATAN --}}
-                        <div class="col-12 col-md-6 col-xl-3">
-
-                            <a
-                                href="{{ route('admin.kegiatan.index') }}"
-                                class="quick-card"
-                            >
-
-                                <div class="quick-icon">
-                                    <i class="bi bi-calendar-event-fill"></i>
-                                </div>
-
-                                <div>
-
-                                    <div class="quick-title">
-                                        Kegiatan
-                                    </div>
-
-                                    <div class="quick-text">
-                                        Kelola agenda kegiatan
-                                    </div>
-
-                                </div>
-
-                            </a>
-
-                        </div>
-
-
-                        {{-- PENGURUS --}}
-                        <div class="col-12 col-md-6 col-xl-3">
-
-                            <a
-                                href="{{ route('admin.pengurus.index') }}"
-                                class="quick-card"
-                            >
-
-                                <div class="quick-icon">
-                                    <i class="bi bi-diagram-3-fill"></i>
-                                </div>
-
-                                <div>
-
-                                    <div class="quick-title">
-                                        Struktur Pengurus
-                                    </div>
-
-                                    <div class="quick-text">
-                                        Kelola struktur organisasi
-                                    </div>
-
-                                </div>
-
-                            </a>
-
-                        </div>
-
 
                     </div>
+
+                    <a href="{{ route('admin.kegiatan.index') }}">
+                        Lihat semua
+                    </a>
+
+                </div>
+
+
+                <div class="panel-body">
+
+                    @if(isset($kegiatanTerbaru) && $kegiatanTerbaru->count())
+
+                        <div class="data-list">
+
+                            @foreach($kegiatanTerbaru as $kegiatan)
+
+                                <div class="data-item">
+
+                                    <div class="data-left">
+
+                                        <div class="data-icon">
+                                            <i class="bi bi-calendar-event-fill"></i>
+                                        </div>
+
+                                        <div class="data-info">
+
+                                            <div class="data-name">
+                                                {{ $kegiatan->nama_kegiatan ?? $kegiatan->judul ?? 'Kegiatan' }}
+                                            </div>
+
+                                            <div class="data-date">
+
+                                                <i class="bi bi-calendar3 me-1"></i>
+
+                                                @if($kegiatan->created_at)
+                                                    {{ $kegiatan->created_at->translatedFormat('d F Y') }}
+                                                @else
+                                                    -
+                                                @endif
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    @if(isset($kegiatan->status))
+
+                                        <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2">
+                                            {{ $kegiatan->status }}
+                                        </span>
+
+                                    @endif
+
+                                </div>
+
+                            @endforeach
+
+                        </div>
+
+                    @else
+
+                        <div class="empty-state">
+
+                            <i class="bi bi-calendar-event"></i>
+
+                            <p>
+                                Belum ada kegiatan.
+                            </p>
+
+                        </div>
+
+                    @endif
 
                 </div>
 
@@ -1226,6 +1215,254 @@
         </div>
 
     </div>
+
+</div>
+
+
+{{-- =========================================
+     QUICK ACCESS
+========================================== --}}
+
+<div class="dashboard-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <h5 class="section-title">
+                Akses Cepat
+            </h5>
+
+            <div class="section-subtitle">
+                Kelola data portal dengan cepat
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row g-3">
+
+        {{-- Anggota --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a
+                href="{{ route('admin.anggota.index') }}"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+
+                <div>
+                    <div class="quick-title">
+                        Data Anggota
+                    </div>
+
+                    <div class="quick-text">
+                        Kelola anggota MAPALA
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        {{-- Berita --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a
+                href="{{ route('admin.berita.index') }}"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    <i class="bi bi-newspaper"></i>
+                </div>
+
+                <div>
+                    <div class="quick-title">
+                        Berita
+                    </div>
+
+                    <div class="quick-text">
+                        Kelola berita organisasi
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        {{-- Kategori --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a
+                href="{{ route('admin.kategori-berita.index') }}"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    <i class="bi bi-tags-fill"></i>
+                </div>
+
+                <div>
+                    <div class="quick-title">
+                        Kategori Berita
+                    </div>
+
+                    <div class="quick-text">
+                        Kelola kategori berita
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        {{-- Kegiatan --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a
+                href="{{ route('admin.kegiatan.index') }}"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    <i class="bi bi-calendar-event-fill"></i>
+                </div>
+
+                <div>
+                    <div class="quick-title">
+                        Kegiatan
+                    </div>
+
+                    <div class="quick-text">
+                        Kelola agenda kegiatan
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        {{-- Galeri --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a
+                href="{{ route('admin.galeri.index') }}"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    <i class="bi bi-images"></i>
+                </div>
+
+                <div>
+                    <div class="quick-title">
+                        Galeri
+                    </div>
+
+                    <div class="quick-text">
+                        Kelola foto kegiatan
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        {{-- Pengurus --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a
+                href="{{ route('admin.pengurus.index') }}"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    <i class="bi bi-diagram-3-fill"></i>
+                </div>
+
+                <div>
+                    <div class="quick-title">
+                        Struktur Pengurus
+                    </div>
+
+                    <div class="quick-text">
+                        Kelola kepengurusan
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        {{-- Pesan --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a
+                href="{{ route('admin.pesan.index') }}"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    <i class="bi bi-chat-left-text-fill"></i>
+                </div>
+
+                <div>
+                    <div class="quick-title">
+                        Pesan
+                    </div>
+
+                    <div class="quick-text">
+                        Pesan dari pengunjung
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        {{-- Pendaftaran --}}
+        <div class="col-12 col-sm-6 col-xl-3">
+
+            <a
+                href="{{ route('admin.pendaftaran.index') }}"
+                class="quick-card"
+            >
+
+                <div class="quick-icon">
+                    <i class="bi bi-person-plus-fill"></i>
+                </div>
+
+                <div>
+                    <div class="quick-title">
+                        Pendaftaran
+                    </div>
+
+                    <div class="quick-text">
+                        Kelola calon anggota
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+```
 
 </div>
 

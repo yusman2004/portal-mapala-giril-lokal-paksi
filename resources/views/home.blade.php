@@ -4,12 +4,16 @@
 
 @section('content')
 
-{{-- HERO --}}
+{{-- =========================================================
+    HERO
+========================================================= --}}
 <section class="hero-section">
+
     <div class="hero-overlay"></div>
 
-    <div class="container position-relative">
-        <div class="row align-items-center min-vh-75">
+    <div class="container position-relative hero-content">
+        <div class="row align-items-center hero-row">
+
             <div class="col-lg-7">
 
                 <span class="hero-badge">
@@ -31,32 +35,40 @@
                 </p>
 
                 <div class="hero-buttons">
+
                     <a href="{{ route('pendaftaran.create') }}"
-                       class="btn btn-success btn-lg px-4">
+                       class="btn btn-success btn-lg px-4 hero-btn">
                         <i class="bi bi-person-plus me-2"></i>
                         Gabung Sekarang
                     </a>
 
                     <a href="#tentang"
-                       class="btn btn-outline-light btn-lg px-4">
+                       class="btn btn-outline-light btn-lg px-4 hero-btn">
                         Kenali Kami
                     </a>
+
                 </div>
 
             </div>
+
         </div>
     </div>
+
 </section>
 
 
-{{-- STATISTIK --}}
+{{-- =========================================================
+    STATISTIK
+========================================================= --}}
 <section class="statistics-section">
+
     <div class="container">
 
         <div class="row g-4">
 
             <div class="col-6 col-lg-3">
                 <div class="stat-card">
+
                     <div class="stat-icon">
                         <i class="bi bi-people-fill"></i>
                     </div>
@@ -68,11 +80,14 @@
                     <div class="stat-label">
                         Anggota
                     </div>
+
                 </div>
             </div>
 
+
             <div class="col-6 col-lg-3">
                 <div class="stat-card">
+
                     <div class="stat-icon">
                         <i class="bi bi-compass-fill"></i>
                     </div>
@@ -84,11 +99,14 @@
                     <div class="stat-label">
                         Kegiatan
                     </div>
+
                 </div>
             </div>
 
+
             <div class="col-6 col-lg-3">
                 <div class="stat-card">
+
                     <div class="stat-icon">
                         <i class="bi bi-newspaper"></i>
                     </div>
@@ -100,11 +118,14 @@
                     <div class="stat-label">
                         Berita
                     </div>
+
                 </div>
             </div>
 
+
             <div class="col-6 col-lg-3">
                 <div class="stat-card">
+
                     <div class="stat-icon">
                         <i class="bi bi-person-check-fill"></i>
                     </div>
@@ -116,16 +137,20 @@
                     <div class="stat-label">
                         Pendaftar
                     </div>
+
                 </div>
             </div>
 
         </div>
 
     </div>
+
 </section>
 
 
-{{-- TENTANG --}}
+{{-- =========================================================
+    TENTANG
+========================================================= --}}
 <section id="tentang" class="section-padding">
 
     <div class="container">
@@ -192,6 +217,7 @@
 
             </div>
 
+
             <div class="col-lg-6">
 
                 <div class="about-box">
@@ -228,7 +254,9 @@
 </section>
 
 
-{{-- KEGIATAN --}}
+{{-- =========================================================
+    KEGIATAN
+========================================================= --}}
 <section class="section-padding section-light">
 
     <div class="container">
@@ -247,6 +275,7 @@
 
         </div>
 
+
         <div class="row g-4">
 
             @forelse($kegiatan as $item)
@@ -256,34 +285,44 @@
                     <div class="activity-card">
 
                         @if($item->gambar)
+
                             <img
                                 src="{{ asset('storage/' . $item->gambar) }}"
                                 alt="{{ $item->nama_kegiatan }}"
                             >
+
                         @else
+
                             <div class="activity-placeholder">
                                 <i class="bi bi-image"></i>
                             </div>
+
                         @endif
+
 
                         <div class="activity-body">
 
                             <div class="activity-date">
+
                                 <i class="bi bi-calendar3"></i>
 
                                 {{ $item->tanggal
                                     ? $item->tanggal->format('d M Y')
                                     : '-' }}
+
                             </div>
+
 
                             <h3>
                                 {{ $item->nama_kegiatan }}
                             </h3>
 
+
                             <p>
                                 <i class="bi bi-geo-alt"></i>
                                 {{ $item->lokasi }}
                             </p>
+
 
                             <span class="status-badge">
                                 {{ $item->status }}
@@ -300,12 +339,18 @@
                 <div class="col-12">
 
                     <div class="empty-state">
+
                         <i class="bi bi-calendar-x"></i>
-                        <h4>Belum ada kegiatan</h4>
+
+                        <h4>
+                            Belum ada kegiatan
+                        </h4>
+
                         <p>
                             Data kegiatan akan ditampilkan
                             di halaman ini.
                         </p>
+
                     </div>
 
                 </div>
@@ -319,7 +364,9 @@
 </section>
 
 
-{{-- BERITA --}}
+{{-- =========================================================
+    BERITA
+========================================================= --}}
 <section class="section-padding">
 
     <div class="container">
@@ -327,6 +374,7 @@
         <div class="section-heading">
 
             <div>
+
                 <div class="section-label">
                     INFORMASI
                 </div>
@@ -334,9 +382,11 @@
                 <h2 class="section-title">
                     Berita <span>Terbaru</span>
                 </h2>
+
             </div>
 
         </div>
+
 
         <div class="row g-4">
 
@@ -361,6 +411,7 @@
 
                         @endif
 
+
                         <div class="news-body">
 
                             @if($item->kategori)
@@ -371,21 +422,26 @@
 
                             @endif
 
+
                             <h3>
                                 {{ $item->judul }}
                             </h3>
 
+
                             <div class="news-meta">
 
                                 <span>
+
                                     <i class="bi bi-calendar3"></i>
 
                                     {{ $item->published_at
                                         ? $item->published_at->format('d M Y')
                                         : '-' }}
+
                                 </span>
 
                             </div>
+
 
                             <p>
                                 {{ \Illuminate\Support\Str::limit(
@@ -405,6 +461,7 @@
                 <div class="col-12">
 
                     <div class="empty-state">
+
                         <i class="bi bi-newspaper"></i>
 
                         <h4>
@@ -415,6 +472,7 @@
                             Berita terbaru akan ditampilkan
                             di halaman ini.
                         </p>
+
                     </div>
 
                 </div>
@@ -428,7 +486,9 @@
 </section>
 
 
-{{-- GALERI --}}
+{{-- =========================================================
+    GALERI
+========================================================= --}}
 <section class="section-padding section-dark">
 
     <div class="container">
@@ -448,6 +508,7 @@
             </div>
 
         </div>
+
 
         <div class="row g-3">
 
@@ -472,6 +533,7 @@
 
                         @endif
 
+
                         <div class="gallery-overlay">
 
                             <h5>
@@ -479,9 +541,11 @@
                             </h5>
 
                             @if($item->kegiatan)
+
                                 <small>
                                     {{ $item->kegiatan->nama_kegiatan }}
                                 </small>
+
                             @endif
 
                         </div>
@@ -495,6 +559,7 @@
                 <div class="col-12">
 
                     <div class="empty-state dark">
+
                         <i class="bi bi-images"></i>
 
                         <h4>
@@ -514,7 +579,9 @@
 </section>
 
 
-{{-- PENGURUS --}}
+{{-- =========================================================
+    PENGURUS
+========================================================= --}}
 <section class="section-padding">
 
     <div class="container">
@@ -535,6 +602,7 @@
             </p>
 
         </div>
+
 
         <div class="row g-4 justify-content-center">
 
@@ -559,13 +627,16 @@
 
                         @endif
 
+
                         <h5>
                             {{ $item->nama }}
                         </h5>
 
+
                         <div class="member-position">
                             {{ $item->jabatan }}
                         </div>
+
 
                         <small>
                             {{ $item->periode }}
@@ -580,6 +651,7 @@
                 <div class="col-12">
 
                     <div class="empty-state">
+
                         <i class="bi bi-people"></i>
 
                         <h4>
@@ -599,7 +671,9 @@
 </section>
 
 
-{{-- CTA --}}
+{{-- =========================================================
+    CTA
+========================================================= --}}
 <section class="cta-section">
 
     <div class="container">
@@ -625,10 +699,11 @@
 
             </div>
 
+
             <div>
 
                 <a href="{{ route('pendaftaran.create') }}"
-                   class="btn btn-light btn-lg px-4">
+                   class="btn btn-light btn-lg px-4 hero-btn">
 
                     <i class="bi bi-person-plus me-2"></i>
                     Daftar Anggota
@@ -650,591 +725,1095 @@
 
 <style>
 
-    :root {
-        --green-dark: #0b2e1d;
-        --green: #166534;
-        --green-light: #22c55e;
-        --cream: #f6f7f2;
-        --text: #1f2937;
-    }
+/* =========================================================
+   ROOT
+========================================================= */
 
-    body {
-        background: #fff;
-        color: var(--text);
-    }
+:root {
+    --green-dark: #0b2e1d;
+    --green: #166534;
+    --green-light: #22c55e;
+    --cream: #f6f7f2;
+    --text: #1f2937;
+}
 
-    .min-vh-75 {
-        min-height: 75vh;
-    }
 
-    /* HERO */
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-    .hero-section {
-        position: relative;
-        min-height: 76vh;
-        display: flex;
-        align-items: center;
-        background:
-            linear-gradient(
-                90deg,
-                rgba(3, 20, 12, .92),
-                rgba(3, 20, 12, .65),
-                rgba(3, 20, 12, .25)
-            ),
-            url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=85')
-            center/cover no-repeat;
-        overflow: hidden;
-    }
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
 
-    .hero-overlay {
-        position: absolute;
-        inset: 0;
-        background:
-            radial-gradient(
-                circle at 80% 30%,
-                rgba(34, 197, 94, .15),
-                transparent 40%
-            );
-    }
+body {
+    background: #fff;
+    color: var(--text);
+    overflow-x: hidden;
+}
 
-    .hero-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 9px 16px;
-        border-radius: 50px;
-        background: rgba(255,255,255,.12);
-        border: 1px solid rgba(255,255,255,.25);
-        color: #fff;
-        font-size: .8rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        margin-bottom: 22px;
-    }
+.min-vh-75 {
+    min-height: 75vh;
+}
 
-    .hero-title {
-        color: #fff;
-        font-size: clamp(2.5rem, 5vw, 5rem);
-        line-height: 1.05;
-        font-weight: 800;
-        max-width: 850px;
-        margin-bottom: 25px;
-    }
 
-    .hero-title span {
-        color: #86efac;
-    }
+/* =========================================================
+   HERO
+========================================================= */
 
-    .hero-text {
-        color: rgba(255,255,255,.82);
-        font-size: 1.08rem;
-        line-height: 1.8;
-        max-width: 680px;
-        margin-bottom: 32px;
-    }
+.hero-section {
+    position: relative;
 
-    .hero-buttons {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
+    /*
+     * DITAMBAHKAN:
+     * ruang atas agar isi Hero tidak tertutup navbar
+     */
+    min-height: 76vh;
+    padding: 110px 0 90px;
 
-    /* STATISTICS */
+    display: flex;
+    align-items: center;
 
-    .statistics-section {
-        margin-top: -55px;
-        position: relative;
-        z-index: 5;
-    }
+    background:
+        linear-gradient(
+            90deg,
+            rgba(3, 20, 12, .92),
+            rgba(3, 20, 12, .65),
+            rgba(3, 20, 12, .25)
+        ),
+        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=85')
+        center/cover no-repeat;
 
-    .stat-card {
-        background: #fff;
-        border-radius: 18px;
-        padding: 25px 15px;
-        text-align: center;
-        box-shadow: 0 15px 45px rgba(0,0,0,.10);
-        height: 100%;
-        border: 1px solid #eef1ed;
-    }
+    overflow: hidden;
+}
 
-    .stat-icon {
-        width: 52px;
-        height: 52px;
-        margin: auto auto 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #dcfce7;
-        color: var(--green);
-        border-radius: 14px;
-        font-size: 1.35rem;
-    }
 
-    .stat-number {
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--green-dark);
-    }
+/*
+ * Overlay selalu berada di belakang teks.
+ */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
 
-    .stat-label {
-        color: #6b7280;
-        font-size: .9rem;
-    }
+    background:
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(34, 197, 94, .15),
+            transparent 40%
+        );
+}
 
-    /* GENERAL */
 
-    .section-padding {
-        padding: 100px 0;
-    }
+/*
+ * Konten Hero berada di atas overlay.
+ */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
 
-    .section-light {
-        background: #f6f8f4;
-    }
 
-    .section-dark {
-        background: var(--green-dark);
-    }
+/*
+ * Row Hero diberi ruang yang cukup.
+ */
+.hero-row {
+    min-height: 55vh;
+}
 
-    .section-label {
-        color: var(--green);
-        font-weight: 800;
-        font-size: .78rem;
-        letter-spacing: 2px;
-        margin-bottom: 10px;
-    }
 
-    .section-label.light {
-        color: #86efac;
-    }
+/* BADGE */
 
-    .section-title {
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 800;
-        color: var(--green-dark);
-        margin-bottom: 20px;
-    }
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 
-    .section-title span {
-        color: var(--green);
-    }
+    padding: 9px 16px;
 
-    .section-description {
-        max-width: 650px;
-        margin: auto;
-        color: #6b7280;
-    }
+    border-radius: 50px;
 
-    .section-heading {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        margin-bottom: 45px;
-    }
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.25);
 
-    .section-text {
-        color: #6b7280;
-        line-height: 1.8;
-    }
+    color: #fff;
 
-    /* ABOUT */
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
 
-    .feature-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-        font-weight: 700;
-    }
+    margin-bottom: 22px;
 
-    .feature-item i {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #dcfce7;
-        color: var(--green);
-        border-radius: 10px;
-    }
+    position: relative;
+    z-index: 3;
+}
 
-    .about-box {
-        background:
-            linear-gradient(
-                145deg,
-                #0b2e1d,
-                #166534
-            );
-        color: #fff;
-        border-radius: 30px;
-        padding: 55px;
-        min-height: 420px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        box-shadow: 0 25px 60px rgba(11,46,29,.20);
-    }
 
-    .about-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255,255,255,.12);
-        font-size: 2rem;
-        margin-bottom: 25px;
-    }
+/* TITLE */
 
-    .about-box h3 {
-        font-size: 2rem;
-        font-weight: 800;
-    }
+.hero-title {
+    color: #fff;
 
-    .about-box p {
-        color: rgba(255,255,255,.75);
-        line-height: 1.8;
-    }
+    font-size: clamp(2.5rem, 5vw, 5rem);
 
-    .about-line {
-        width: 70px;
-        height: 3px;
-        background: #86efac;
-        margin: 25px 0;
-    }
+    line-height: 1.08;
+    font-weight: 800;
 
-    .about-box small {
-        letter-spacing: 2px;
-        font-weight: 700;
-    }
+    max-width: 850px;
 
-    /* ACTIVITY */
+    margin-bottom: 25px;
 
-    .activity-card {
-        height: 100%;
-        background: #fff;
-        border-radius: 18px;
-        overflow: hidden;
-        box-shadow: 0 10px 35px rgba(0,0,0,.07);
-        transition: .3s;
-    }
+    position: relative;
+    z-index: 3;
+}
 
-    .activity-card:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 20px 45px rgba(0,0,0,.12);
-    }
+.hero-title span {
+    color: #86efac;
+}
 
-    .activity-card img,
-    .activity-placeholder {
-        width: 100%;
-        height: 220px;
-        object-fit: cover;
-    }
 
-    .activity-placeholder {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #e5e7eb;
-        color: #9ca3af;
-        font-size: 3rem;
-    }
+/* TEXT */
 
-    .activity-body {
-        padding: 24px;
-    }
+.hero-text {
+    color: rgba(255,255,255,.88);
 
-    .activity-date {
-        color: var(--green);
-        font-size: .8rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
+    font-size: 1.08rem;
+    line-height: 1.8;
 
-    .activity-body h3 {
-        font-size: 1.2rem;
-        font-weight: 800;
-        color: #111827;
-    }
+    max-width: 680px;
 
-    .activity-body p {
-        color: #6b7280;
-        font-size: .9rem;
-    }
+    margin-bottom: 32px;
 
-    .status-badge {
-        display: inline-block;
-        background: #dcfce7;
-        color: #166534;
-        padding: 5px 10px;
-        border-radius: 50px;
-        font-size: .75rem;
-        font-weight: 700;
-    }
+    position: relative;
+    z-index: 3;
+}
 
-    /* NEWS */
 
-    .news-card {
-        height: 100%;
-        background: #fff;
-        border-radius: 18px;
-        overflow: hidden;
-        border: 1px solid #edf0ec;
-        transition: .3s;
-    }
+/* BUTTON */
 
-    .news-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 45px rgba(0,0,0,.08);
-    }
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 
-    .news-card img,
-    .news-placeholder {
-        width: 100%;
-        height: 210px;
-        object-fit: cover;
-    }
+    position: relative;
+    z-index: 5;
+}
 
-    .news-placeholder {
-        background: #e5e7eb;
-        color: #9ca3af;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
-    }
+.hero-btn {
+    position: relative;
+    z-index: 5;
+    white-space: nowrap;
+}
 
-    .news-body {
-        padding: 25px;
-    }
 
-    .news-category {
-        display: inline-block;
-        color: var(--green);
-        font-size: .75rem;
-        font-weight: 800;
-        margin-bottom: 12px;
-        text-transform: uppercase;
-    }
+/* =========================================================
+   STATISTICS
+========================================================= */
 
-    .news-body h3 {
-        font-size: 1.25rem;
-        font-weight: 800;
-        line-height: 1.4;
-        margin-bottom: 10px;
-    }
+.statistics-section {
+    margin-top: -45px;
 
-    .news-body p {
-        color: #6b7280;
-        line-height: 1.7;
-        font-size: .9rem;
-    }
+    position: relative;
+    z-index: 10;
 
-    .news-meta {
-        color: #9ca3af;
-        font-size: .8rem;
-        margin-bottom: 10px;
-    }
+    padding-bottom: 20px;
+}
 
-    /* GALLERY */
+.stat-card {
+    background: #fff;
 
-    .gallery-card {
-        height: 260px;
-        border-radius: 14px;
-        overflow: hidden;
-        position: relative;
-        background: #173c29;
-    }
+    border-radius: 18px;
 
-    .gallery-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: .5s;
-    }
+    padding: 25px 15px;
 
-    .gallery-card:hover img {
-        transform: scale(1.08);
-    }
+    text-align: center;
 
-    .gallery-overlay {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 25px 18px 18px;
-        background: linear-gradient(
+    box-shadow: 0 15px 45px rgba(0,0,0,.10);
+
+    height: 100%;
+
+    border: 1px solid #eef1ed;
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+
+    margin: auto auto 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #dcfce7;
+
+    color: var(--green);
+
+    border-radius: 14px;
+
+    font-size: 1.35rem;
+}
+
+.stat-number {
+    font-size: 2rem;
+
+    font-weight: 800;
+
+    color: var(--green-dark);
+}
+
+.stat-label {
+    color: #6b7280;
+    font-size: .9rem;
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+.section-padding {
+    padding: 100px 0;
+}
+
+.section-light {
+    background: #f6f8f4;
+}
+
+.section-dark {
+    background: var(--green-dark);
+}
+
+.section-label {
+    color: var(--green);
+
+    font-weight: 800;
+
+    font-size: .78rem;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+.section-label.light {
+    color: #86efac;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+
+    font-weight: 800;
+
+    color: var(--green-dark);
+
+    margin-bottom: 20px;
+
+    line-height: 1.15;
+}
+
+.section-title span {
+    color: var(--green);
+}
+
+.section-description {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: #6b7280;
+
+    line-height: 1.7;
+}
+
+.section-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    margin-bottom: 45px;
+}
+
+.section-text {
+    color: #6b7280;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.feature-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+
+    font-weight: 700;
+}
+
+.feature-item i {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #dcfce7;
+
+    color: var(--green);
+
+    border-radius: 10px;
+
+    flex-shrink: 0;
+}
+
+.about-box {
+    background:
+        linear-gradient(
+            145deg,
+            #0b2e1d,
+            #166534
+        );
+
+    color: #fff;
+
+    border-radius: 30px;
+
+    padding: 55px;
+
+    min-height: 420px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    box-shadow: 0 25px 60px rgba(11,46,29,.20);
+}
+
+.about-icon {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,.12);
+
+    font-size: 2rem;
+
+    margin-bottom: 25px;
+}
+
+.about-box h3 {
+    font-size: 2rem;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+}
+
+.about-box p {
+    color: rgba(255,255,255,.75);
+
+    line-height: 1.8;
+}
+
+.about-line {
+    width: 70px;
+    height: 3px;
+
+    background: #86efac;
+
+    margin: 25px 0;
+}
+
+.about-box small {
+    letter-spacing: 2px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ACTIVITY
+========================================================= */
+
+.activity-card {
+    height: 100%;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 35px rgba(0,0,0,.07);
+
+    transition: .3s;
+}
+
+.activity-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow: 0 20px 45px rgba(0,0,0,.12);
+}
+
+.activity-card img,
+.activity-placeholder {
+    width: 100%;
+    height: 220px;
+
+    object-fit: cover;
+}
+
+.activity-placeholder {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #e5e7eb;
+
+    color: #9ca3af;
+
+    font-size: 3rem;
+}
+
+.activity-body {
+    padding: 24px;
+}
+
+.activity-date {
+    color: var(--green);
+
+    font-size: .8rem;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.activity-body h3 {
+    font-size: 1.2rem;
+
+    font-weight: 800;
+
+    color: #111827;
+
+    line-height: 1.4;
+}
+
+.activity-body p {
+    color: #6b7280;
+
+    font-size: .9rem;
+
+    line-height: 1.6;
+}
+
+.status-badge {
+    display: inline-block;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    padding: 5px 10px;
+
+    border-radius: 50px;
+
+    font-size: .75rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   NEWS
+========================================================= */
+
+.news-card {
+    height: 100%;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid #edf0ec;
+
+    transition: .3s;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 20px 45px rgba(0,0,0,.08);
+}
+
+.news-card img,
+.news-placeholder {
+    width: 100%;
+    height: 210px;
+
+    object-fit: cover;
+}
+
+.news-placeholder {
+    background: #e5e7eb;
+
+    color: #9ca3af;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 3rem;
+}
+
+.news-body {
+    padding: 25px;
+}
+
+.news-category {
+    display: inline-block;
+
+    color: var(--green);
+
+    font-size: .75rem;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+
+    text-transform: uppercase;
+}
+
+.news-body h3 {
+    font-size: 1.25rem;
+
+    font-weight: 800;
+
+    line-height: 1.4;
+
+    margin-bottom: 10px;
+}
+
+.news-body p {
+    color: #6b7280;
+
+    line-height: 1.7;
+
+    font-size: .9rem;
+}
+
+.news-meta {
+    color: #9ca3af;
+
+    font-size: .8rem;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery-card {
+    height: 260px;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    background: #173c29;
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: .5s;
+}
+
+.gallery-card:hover img {
+    transform: scale(1.08);
+}
+
+.gallery-overlay {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 25px 18px 18px;
+
+    background:
+        linear-gradient(
             transparent,
             rgba(0,0,0,.8)
         );
-        color: #fff;
+
+    color: #fff;
+}
+
+.gallery-overlay h5 {
+    margin: 0;
+
+    font-weight: 700;
+
+    font-size: .95rem;
+}
+
+.gallery-overlay small {
+    color: rgba(255,255,255,.7);
+}
+
+.gallery-placeholder {
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(255,255,255,.3);
+
+    font-size: 3rem;
+}
+
+
+/* =========================================================
+   MEMBER
+========================================================= */
+
+.member-card {
+    text-align: center;
+}
+
+.member-card img,
+.member-placeholder {
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    margin: auto auto 18px;
+
+    border: 5px solid #e5f4e8;
+}
+
+.member-placeholder {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #e5f4e8;
+
+    color: var(--green);
+
+    font-size: 2.5rem;
+}
+
+.member-card h5 {
+    font-weight: 800;
+
+    font-size: 1rem;
+
+    margin-bottom: 4px;
+
+    line-height: 1.3;
+}
+
+.member-position {
+    color: var(--green);
+
+    font-weight: 700;
+
+    font-size: .8rem;
+
+    line-height: 1.4;
+}
+
+.member-card small {
+    color: #9ca3af;
+
+    font-size: .75rem;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta-section {
+    padding: 80px 0;
+
+    background: #f6f8f4;
+}
+
+.cta-box {
+    background:
+        linear-gradient(
+            120deg,
+            #0b2e1d,
+            #166534
+        );
+
+    border-radius: 28px;
+
+    padding: 55px;
+
+    color: #fff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.cta-box h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+
+    font-weight: 800;
+
+    max-width: 700px;
+
+    line-height: 1.15;
+}
+
+.cta-box p {
+    color: rgba(255,255,255,.72);
+
+    max-width: 650px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-state {
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+.empty-state i {
+    font-size: 3rem;
+
+    color: #9ca3af;
+}
+
+.empty-state h4 {
+    color: #374151;
+
+    margin-top: 15px;
+
+    font-weight: 800;
+}
+
+.empty-state.dark {
+    background: rgba(255,255,255,.05);
+
+    color: rgba(255,255,255,.6);
+}
+
+.empty-state.dark h4 {
+    color: #fff;
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media (max-width: 991.98px) {
+
+    .hero-section {
+        min-height: auto;
+
+        padding-top: 120px;
+        padding-bottom: 90px;
     }
 
-    .gallery-overlay h5 {
-        margin: 0;
-        font-weight: 700;
-        font-size: .95rem;
+    .hero-row {
+        min-height: auto;
     }
 
-    .gallery-overlay small {
-        color: rgba(255,255,255,.7);
+    .hero-title {
+        max-width: 100%;
     }
 
-    .gallery-placeholder {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: rgba(255,255,255,.3);
-        font-size: 3rem;
+    .hero-text {
+        max-width: 100%;
     }
 
-    /* MEMBER */
-
-    .member-card {
-        text-align: center;
+    .statistics-section {
+        margin-top: -35px;
     }
+
+    .about-box {
+        min-height: 380px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE HP
+========================================================= */
+
+@media (max-width: 768px) {
+
+    html {
+        scroll-padding-top: 75px;
+    }
+
+    /*
+     * Jarak atas lebih besar supaya navbar mobile
+     * tidak menutup badge/judul.
+     */
+    .hero-section {
+        min-height: auto;
+
+        padding-top: 120px;
+        padding-bottom: 75px;
+
+        background-position: 60% center;
+    }
+
+    .hero-row {
+        min-height: auto;
+    }
+
+    .hero-badge {
+        font-size: .68rem;
+
+        padding: 8px 13px;
+
+        letter-spacing: 1px;
+
+        margin-bottom: 18px;
+
+        max-width: 100%;
+
+        white-space: normal;
+
+        line-height: 1.4;
+    }
+
+    .hero-title {
+        font-size: 2.55rem;
+
+        line-height: 1.08;
+
+        margin-bottom: 20px;
+    }
+
+    .hero-text {
+        font-size: .98rem;
+
+        line-height: 1.7;
+
+        margin-bottom: 25px;
+    }
+
+    .hero-buttons {
+        width: 100%;
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .hero-btn {
+        width: 100%;
+    }
+
+
+    .statistics-section {
+        margin-top: -25px;
+
+        padding-bottom: 10px;
+    }
+
+    .stat-card {
+        padding: 20px 10px;
+    }
+
+    .stat-icon {
+        width: 46px;
+        height: 46px;
+
+        font-size: 1.15rem;
+    }
+
+    .stat-number {
+        font-size: 1.65rem;
+    }
+
+    .stat-label {
+        font-size: .82rem;
+    }
+
+
+    .section-padding {
+        padding: 70px 0;
+    }
+
+
+    .section-title {
+        font-size: 2rem;
+
+        line-height: 1.15;
+    }
+
+
+    .section-heading {
+        display: block;
+
+        margin-bottom: 30px;
+    }
+
+
+    .about-box {
+        padding: 35px;
+
+        min-height: auto;
+
+        border-radius: 24px;
+    }
+
+    .about-box h3 {
+        font-size: 1.7rem;
+    }
+
+
+    .activity-card img,
+    .activity-placeholder {
+        height: 200px;
+    }
+
+
+    .news-card img,
+    .news-placeholder {
+        height: 200px;
+    }
+
+
+    .gallery-card {
+        height: 200px;
+    }
+
 
     .member-card img,
     .member-placeholder {
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin: auto auto 18px;
-        border: 5px solid #e5f4e8;
+        width: 110px;
+        height: 110px;
     }
 
-    .member-placeholder {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #e5f4e8;
-        color: var(--green);
-        font-size: 2.5rem;
-    }
-
-    .member-card h5 {
-        font-weight: 800;
-        font-size: 1rem;
-        margin-bottom: 4px;
-    }
-
-    .member-position {
-        color: var(--green);
-        font-weight: 700;
-        font-size: .8rem;
-    }
-
-    .member-card small {
-        color: #9ca3af;
-        font-size: .75rem;
-    }
-
-    /* CTA */
 
     .cta-section {
-        padding: 80px 0;
-        background: #f6f8f4;
+        padding: 55px 0;
     }
 
     .cta-box {
-        background:
-            linear-gradient(
-                120deg,
-                #0b2e1d,
-                #166534
-            );
-        border-radius: 28px;
-        padding: 55px;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 30px;
+        padding: 35px 25px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        border-radius: 24px;
     }
 
     .cta-box h2 {
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 800;
-        max-width: 700px;
+        font-size: 2rem;
     }
 
-    .cta-box p {
-        color: rgba(255,255,255,.72);
-        max-width: 650px;
-        line-height: 1.7;
+}
+
+
+/* =========================================================
+   HP KECIL
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .hero-section {
+        padding-top: 115px;
     }
 
-    /* EMPTY */
-
-    .empty-state {
-        background: #fff;
-        border-radius: 18px;
-        padding: 60px 20px;
-        text-align: center;
-        color: #6b7280;
+    .hero-title {
+        font-size: 2.2rem;
     }
 
-    .empty-state i {
-        font-size: 3rem;
-        color: #9ca3af;
+    .hero-text {
+        font-size: .92rem;
     }
 
-    .empty-state h4 {
-        color: #374151;
-        margin-top: 15px;
-        font-weight: 800;
+    .stat-number {
+        font-size: 1.45rem;
     }
 
-    .empty-state.dark {
-        background: rgba(255,255,255,.05);
-        color: rgba(255,255,255,.6);
+    .stat-label {
+        font-size: .76rem;
     }
 
-    .empty-state.dark h4 {
-        color: #fff;
+    .section-title {
+        font-size: 1.8rem;
     }
 
-    /* RESPONSIVE */
-
-    @media (max-width: 768px) {
-
-        .hero-section {
-            min-height: 90vh;
-        }
-
-        .hero-title {
-            font-size: 2.7rem;
-        }
-
-        .statistics-section {
-            margin-top: -30px;
-        }
-
-        .section-padding {
-            padding: 70px 0;
-        }
-
-        .about-box {
-            padding: 35px;
-        }
-
-        .section-heading {
-            display: block;
-        }
-
-        .cta-box {
-            padding: 35px;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .gallery-card {
-            height: 200px;
-        }
-
+    .about-box {
+        padding: 28px;
     }
+
+    .cta-box {
+        padding: 30px 22px;
+    }
+
+}
 
 </style>
 
