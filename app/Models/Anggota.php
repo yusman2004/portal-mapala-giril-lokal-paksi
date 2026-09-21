@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Anggota extends Model
+{
+    use HasFactory;
+
+    protected $table = 'anggota';
+
+    protected $fillable = [
+        'nama_lengkap',
+        'nim',
+        'jenis_kelamin',
+        'no_hp',
+        'alamat',
+        'angkatan',
+        'foto',
+        'status',
+    ];
+}
