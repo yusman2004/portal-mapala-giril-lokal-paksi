@@ -9,7 +9,9 @@
         color: #1d2b25;
     }
 
-    /* HERO */
+    /* =========================
+       HERO
+    ========================= */
     .welcome-card {
         background: linear-gradient(135deg, #123b2a 0%, #1f6749 100%);
         border-radius: 22px;
@@ -83,8 +85,9 @@
         font-size: 13px;
     }
 
-
-    /* STATISTIK */
+    /* =========================
+       STATISTIK
+    ========================= */
     .stat-card {
         background: white;
         border: 1px solid #e8eeeb;
@@ -131,28 +134,32 @@
         color: #6f42c1;
     }
 
-    .stat-label {
+    .stat-content span {
+        display: block;
         color: #74817b;
         font-size: 13px;
         font-weight: 600;
         margin-bottom: 6px;
     }
 
-    .stat-number {
+    .stat-content h3 {
         color: #17251f;
         font-size: 34px;
         line-height: 1;
         font-weight: 800;
+        margin: 0;
     }
 
-    .stat-description {
+    .stat-content small {
+        display: block;
         margin-top: 12px;
         color: #8b9691;
         font-size: 12px;
     }
 
-
-    /* PANEL */
+    /* =========================
+       PANEL
+    ========================= */
     .content-card {
         background: white;
         border: 1px solid #e8eeeb;
@@ -185,8 +192,9 @@
         padding: 25px;
     }
 
-
-    /* QUICK STAT */
+    /* =========================
+       RINGKASAN
+    ========================= */
     .summary-item {
         display: flex;
         align-items: center;
@@ -235,8 +243,9 @@
         color: #1d2b25;
     }
 
-
-    /* PENDAFTARAN */
+    /* =========================
+       PENDAFTARAN
+    ========================= */
     .registration-item {
         display: flex;
         align-items: center;
@@ -294,8 +303,9 @@
         margin-bottom: 12px;
     }
 
-
-    /* STATUS */
+    /* =========================
+       STATUS
+    ========================= */
     .status-box {
         background: #f8faf9;
         border-radius: 14px;
@@ -335,8 +345,9 @@
         background: linear-gradient(90deg, #198754, #52ad7e);
     }
 
-
-    /* AKSES CEPAT */
+    /* =========================
+       AKSES CEPAT
+    ========================= */
     .quick-card {
         display: flex;
         align-items: center;
@@ -381,8 +392,9 @@
         margin-top: 4px;
     }
 
-
-    /* RESPONSIVE */
+    /* =========================
+       RESPONSIVE
+    ========================= */
     @media(max-width: 768px) {
 
         .welcome-card {
@@ -402,7 +414,7 @@
             padding: 20px;
         }
 
-        .stat-number {
+        .stat-content h3 {
             font-size: 29px;
         }
 
@@ -414,7 +426,6 @@
         .registration-date {
             display: none;
         }
-
     }
 </style>
 
@@ -460,8 +471,8 @@
     ============================= --}}
     <div class="row g-4 mb-4">
 
-        {{-- ANGGOTA --}}
-        <div class="col-12 col-sm-6 col-xl-3">
+        {{-- TOTAL ANGGOTA --}}
+        <div class="col-xl-3 col-md-6">
 
             <div class="stat-card">
 
@@ -469,17 +480,18 @@
                     <i class="bi bi-people-fill"></i>
                 </div>
 
-                <div class="stat-label">
-                    TOTAL ANGGOTA
-                </div>
+                <div class="stat-content">
 
-                <div class="stat-number">
-                    {{ $totalAnggota ?? 0 }}
-                </div>
+                    <span>Total Anggota</span>
 
-                <div class="stat-description">
-                    <i class="bi bi-person-check me-1"></i>
-                    Data anggota organisasi
+                    <h3>
+                        {{ $totalAnggota ?? 0 }}
+                    </h3>
+
+                    <small>
+                        Data anggota MAPALA
+                    </small>
+
                 </div>
 
             </div>
@@ -487,8 +499,8 @@
         </div>
 
 
-        {{-- BERITA --}}
-        <div class="col-12 col-sm-6 col-xl-3">
+        {{-- TOTAL BERITA --}}
+        <div class="col-xl-3 col-md-6">
 
             <div class="stat-card">
 
@@ -496,17 +508,18 @@
                     <i class="bi bi-newspaper"></i>
                 </div>
 
-                <div class="stat-label">
-                    TOTAL BERITA
-                </div>
+                <div class="stat-content">
 
-                <div class="stat-number">
-                    {{ $totalBerita ?? 0 }}
-                </div>
+                    <span>Total Berita</span>
 
-                <div class="stat-description">
-                    <i class="bi bi-file-text me-1"></i>
-                    Informasi dan publikasi
+                    <h3>
+                        {{ $totalBerita ?? 0 }}
+                    </h3>
+
+                    <small>
+                        Artikel berita
+                    </small>
+
                 </div>
 
             </div>
@@ -514,8 +527,36 @@
         </div>
 
 
-        {{-- KEGIATAN --}}
-        <div class="col-12 col-sm-6 col-xl-3">
+        {{-- TOTAL KATEGORI --}}
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    <i class="bi bi-tags-fill"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Kategori Berita</span>
+
+                    <h3>
+                        {{ $totalKategoriBerita ?? 0 }}
+                    </h3>
+
+                    <small>
+                        Kategori artikel
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- TOTAL KEGIATAN --}}
+        <div class="col-xl-3 col-md-6">
 
             <div class="stat-card">
 
@@ -523,44 +564,18 @@
                     <i class="bi bi-calendar-event-fill"></i>
                 </div>
 
-                <div class="stat-label">
-                    TOTAL KEGIATAN
-                </div>
+                <div class="stat-content">
 
-                <div class="stat-number">
-                    {{ $totalKegiatan ?? 0 }}
-                </div>
+                    <span>Total Kegiatan</span>
 
-                <div class="stat-description">
-                    <i class="bi bi-calendar-check me-1"></i>
-                    Agenda organisasi
-                </div>
+                    <h3>
+                        {{ $totalKegiatan ?? 0 }}
+                    </h3>
 
-            </div>
+                    <small>
+                        Agenda kegiatan
+                    </small>
 
-        </div>
-
-
-        {{-- PENGURUS --}}
-        <div class="col-12 col-sm-6 col-xl-3">
-
-            <div class="stat-card">
-
-                <div class="stat-icon purple">
-                    <i class="bi bi-diagram-3-fill"></i>
-                </div>
-
-                <div class="stat-label">
-                    TOTAL PENGURUS
-                </div>
-
-                <div class="stat-number">
-                    {{ $totalPengurus ?? 0 }}
-                </div>
-
-                <div class="stat-description">
-                    <i class="bi bi-person-badge me-1"></i>
-                    Struktur organisasi
                 </div>
 
             </div>
@@ -575,7 +590,8 @@
     ============================= --}}
     <div class="row g-4 mb-4">
 
-        {{-- RINGKASAN --}}
+
+        {{-- RINGKASAN PORTAL --}}
         <div class="col-lg-7">
 
             <div class="content-card">
@@ -583,8 +599,11 @@
                 <div class="content-header">
 
                     <h5 class="content-title">
+
                         <i class="bi bi-bar-chart-line-fill text-success me-2"></i>
+
                         Ringkasan Portal
+
                     </h5>
 
                     <p class="content-subtitle">
@@ -593,8 +612,11 @@
 
                 </div>
 
+
                 <div class="content-body">
 
+
+                    {{-- ANGGOTA --}}
                     <div class="summary-item">
 
                         <div class="summary-left">
@@ -624,6 +646,7 @@
                     </div>
 
 
+                    {{-- BERITA --}}
                     <div class="summary-item">
 
                         <div class="summary-left">
@@ -653,6 +676,37 @@
                     </div>
 
 
+                    {{-- KATEGORI BERITA --}}
+                    <div class="summary-item">
+
+                        <div class="summary-left">
+
+                            <div class="summary-icon">
+                                <i class="bi bi-tags-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <div class="summary-name">
+                                    Kategori Berita
+                                </div>
+
+                                <div class="summary-info">
+                                    Kategori artikel berita
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="summary-number">
+                            {{ $totalKategoriBerita ?? 0 }}
+                        </div>
+
+                    </div>
+
+
+                    {{-- KEGIATAN --}}
                     <div class="summary-item">
 
                         <div class="summary-left">
@@ -682,6 +736,7 @@
                     </div>
 
 
+                    {{-- PENGURUS --}}
                     <div class="summary-item">
 
                         <div class="summary-left">
@@ -710,6 +765,7 @@
 
                     </div>
 
+
                 </div>
 
             </div>
@@ -725,8 +781,11 @@
                 <div class="content-header">
 
                     <h5 class="content-title">
+
                         <i class="bi bi-person-plus-fill text-success me-2"></i>
+
                         Status Pendaftaran
+
                     </h5>
 
                     <p class="content-subtitle">
@@ -735,18 +794,23 @@
 
                 </div>
 
+
                 <div class="content-body">
 
                     @php
+
                         $totalDaftar = $totalPendaftaran ?? 0;
+
                         $menunggu = $pendaftaranMenunggu ?? 0;
 
                         $persenMenunggu = $totalDaftar > 0
                             ? ($menunggu / $totalDaftar) * 100
                             : 0;
+
                     @endphp
 
 
+                    {{-- MENUNGGU --}}
                     <div class="status-box">
 
                         <div class="status-top">
@@ -761,6 +825,7 @@
 
                         </div>
 
+
                         <div class="custom-progress">
 
                             <div
@@ -773,6 +838,7 @@
                     </div>
 
 
+                    {{-- TOTAL --}}
                     <div class="status-box">
 
                         <div class="status-top">
@@ -787,6 +853,7 @@
 
                         </div>
 
+
                         <div class="custom-progress">
 
                             <div
@@ -799,6 +866,7 @@
                     </div>
 
 
+                    {{-- INFO --}}
                     <div
                         class="p-3 rounded-3"
                         style="background:#eaf7ef;"
@@ -806,9 +874,7 @@
 
                         <div class="d-flex gap-3 align-items-center">
 
-                            <i
-                                class="bi bi-info-circle-fill text-success fs-4"
-                            ></i>
+                            <i class="bi bi-info-circle-fill text-success fs-4"></i>
 
                             <div>
 
@@ -820,8 +886,11 @@
                                     class="small"
                                     style="color:#527064;"
                                 >
+
                                     {{ $menunggu }}
+
                                     pendaftaran menunggu proses.
+
                                 </div>
 
                             </div>
@@ -829,6 +898,7 @@
                         </div>
 
                     </div>
+
 
                 </div>
 
@@ -855,8 +925,11 @@
                         <div>
 
                             <h5 class="content-title">
+
                                 <i class="bi bi-person-lines-fill text-success me-2"></i>
+
                                 Pendaftaran Terbaru
+
                             </h5>
 
                             <p class="content-subtitle">
@@ -865,14 +938,18 @@
 
                         </div>
 
+
                         @if(Route::has('admin.pendaftaran.index'))
 
                             <a
                                 href="{{ route('admin.pendaftaran.index') }}"
                                 class="btn btn-success rounded-pill px-4"
                             >
+
                                 <i class="bi bi-eye me-1"></i>
+
                                 Lihat Semua
+
                             </a>
 
                         @endif
@@ -889,14 +966,20 @@
                         @foreach($pendaftaranTerbaru as $pendaftaran)
 
                             @php
+
                                 $nama = $pendaftaran->nama ?? 'Pendaftar';
+
                             @endphp
+
 
                             <div class="registration-item">
 
                                 <div class="avatar">
+
                                     {{ strtoupper(substr($nama, 0, 1)) }}
+
                                 </div>
+
 
                                 <div>
 
@@ -911,6 +994,7 @@
                                     </div>
 
                                 </div>
+
 
                                 <div class="registration-date">
 
@@ -969,8 +1053,11 @@
                 <div class="content-header">
 
                     <h5 class="content-title">
+
                         <i class="bi bi-lightning-charge-fill text-warning me-2"></i>
+
                         Akses Cepat
+
                     </h5>
 
                     <p class="content-subtitle">
@@ -984,6 +1071,8 @@
 
                     <div class="row g-3">
 
+
+                        {{-- DATA ANGGOTA --}}
                         <div class="col-12 col-md-6 col-xl-3">
 
                             <a
@@ -1012,6 +1101,7 @@
                         </div>
 
 
+                        {{-- BERITA --}}
                         <div class="col-12 col-md-6 col-xl-3">
 
                             <a
@@ -1040,6 +1130,36 @@
                         </div>
 
 
+                        {{-- KATEGORI BERITA --}}
+                        <div class="col-12 col-md-6 col-xl-3">
+
+                            <a
+                                href="{{ route('admin.kategori-berita.index') }}"
+                                class="quick-card"
+                            >
+
+                                <div class="quick-icon">
+                                    <i class="bi bi-tags-fill"></i>
+                                </div>
+
+                                <div>
+
+                                    <div class="quick-title">
+                                        Kategori Berita
+                                    </div>
+
+                                    <div class="quick-text">
+                                        Kelola kategori berita
+                                    </div>
+
+                                </div>
+
+                            </a>
+
+                        </div>
+
+
+                        {{-- KEGIATAN --}}
                         <div class="col-12 col-md-6 col-xl-3">
 
                             <a
@@ -1068,6 +1188,7 @@
                         </div>
 
 
+                        {{-- PENGURUS --}}
                         <div class="col-12 col-md-6 col-xl-3">
 
                             <a
@@ -1094,6 +1215,7 @@
                             </a>
 
                         </div>
+
 
                     </div>
 

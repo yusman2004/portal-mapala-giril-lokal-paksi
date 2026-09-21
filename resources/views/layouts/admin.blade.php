@@ -122,6 +122,20 @@
             color: #856404;
         }
 
+        /* Scrollbar Sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #163b2c;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #286347;
+            border-radius: 10px;
+        }
+
         @media (max-width: 991.98px) {
 
             .sidebar {
@@ -174,82 +188,102 @@
 
     <aside class="sidebar" id="adminSidebar">
 
+        {{-- BRAND --}}
         <div class="brand">
             <i class="bi bi-mountains"></i>
             MAPALA ADMIN
         </div>
+
 
         {{-- DASHBOARD --}}
         <a href="{{ route('admin.dashboard') }}"
            class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
             <i class="bi bi-speedometer2"></i>
-            Dashboard
+            <span>Dashboard</span>
 
         </a>
+
 
         {{-- ANGGOTA --}}
         <a href="{{ route('admin.anggota.index') }}"
            class="{{ request()->routeIs('admin.anggota.*') ? 'active' : '' }}">
 
             <i class="bi bi-people"></i>
-            Anggota
+            <span>Anggota</span>
 
         </a>
+
 
         {{-- BERITA --}}
         <a href="{{ route('admin.berita.index') }}"
            class="{{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
 
             <i class="bi bi-newspaper"></i>
-            Berita
+            <span>Berita</span>
 
         </a>
+
+
+        {{-- KATEGORI BERITA --}}
+        <a href="{{ route('admin.kategori-berita.index') }}"
+           class="{{ request()->routeIs('admin.kategori-berita.*') ? 'active' : '' }}">
+
+            <i class="bi bi-tags"></i>
+            <span>Kategori Berita</span>
+
+        </a>
+
 
         {{-- KEGIATAN --}}
         <a href="{{ route('admin.kegiatan.index') }}"
            class="{{ request()->routeIs('admin.kegiatan.*') ? 'active' : '' }}">
 
             <i class="bi bi-calendar-event"></i>
-            Kegiatan
+            <span>Kegiatan</span>
 
         </a>
+
 
         {{-- GALERI --}}
         <a href="{{ route('admin.galeri.index') }}"
            class="{{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
 
             <i class="bi bi-images"></i>
-            Galeri
+            <span>Galeri</span>
 
         </a>
+
 
         {{-- PENGURUS --}}
         <a href="{{ route('admin.pengurus.index') }}"
            class="{{ request()->routeIs('admin.pengurus.*') ? 'active' : '' }}">
 
             <i class="bi bi-person-badge"></i>
-            Pengurus
+            <span>Pengurus</span>
 
         </a>
+
 
         {{-- PESAN --}}
         <a href="{{ route('admin.pesan.index') }}"
            class="{{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
 
             <i class="bi bi-envelope"></i>
-            Pesan
+            <span>Pesan</span>
 
         </a>
+
 
         {{-- PENDAFTARAN --}}
         <a href="{{ route('admin.pendaftaran.index') }}"
            class="{{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
 
             <i class="bi bi-person-plus"></i>
-            Pendaftaran
+            <span>Pendaftaran</span>
 
         </a>
+
 
         {{-- LOGOUT --}}
         <div class="p-3 mt-3">
@@ -262,7 +296,7 @@
                     class="btn btn-danger w-100"
                     type="submit">
 
-                    <i class="bi bi-box-arrow-right"></i>
+                    <i class="bi bi-box-arrow-right me-1"></i>
                     Logout
 
                 </button>
@@ -274,7 +308,10 @@
     </aside>
 
 
-    {{-- OVERLAY --}}
+    {{-- =====================================================
+         OVERLAY MOBILE
+    ====================================================== --}}
+
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 
@@ -308,7 +345,7 @@
             {{-- USER --}}
             <div>
 
-                <i class="bi bi-person-circle"></i>
+                <i class="bi bi-person-circle me-1"></i>
 
                 {{ Auth::user()->name ?? 'Admin' }}
 
@@ -318,8 +355,7 @@
 
 
         {{-- =====================================================
-             INI YANG PALING PENTING
-             SETIAP HALAMAN MASUK KE SINI
+             CONTENT SETIAP HALAMAN
         ====================================================== --}}
 
         <div class="content">
@@ -335,7 +371,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
-    {{-- SIDEBAR MOBILE --}}
+    {{-- =====================================================
+         SIDEBAR MOBILE
+    ====================================================== --}}
+
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -396,9 +435,30 @@
 
             });
 
+
+            /* Tutup sidebar setelah memilih menu di HP */
+            document.querySelectorAll('.sidebar a').forEach(function (link) {
+
+                link.addEventListener('click', function () {
+
+                    if (window.innerWidth <= 991.98) {
+
+                        sidebar.classList.remove('mobile-open');
+
+                        if (overlay) {
+                            overlay.classList.remove('show');
+                        }
+
+                    }
+
+                });
+
+            });
+
         });
 
     </script>
+
 
     @stack('scripts')
 

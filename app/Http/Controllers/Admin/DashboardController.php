@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Anggota;
 use App\Models\Berita;
+use App\Models\KategoriBerita;
 use App\Models\Kegiatan;
 use App\Models\Pengurus;
 use App\Models\Pendaftaran;
@@ -20,6 +21,7 @@ class DashboardController extends Controller
         $totalAnggota = Anggota::count();
         $jumlahAnggota = $totalAnggota;
 
+
         // =========================
         // BERITA
         // =========================
@@ -29,6 +31,13 @@ class DashboardController extends Controller
         $beritaTerbaru = Berita::latest()
             ->take(5)
             ->get();
+
+
+        // =========================
+        // KATEGORI BERITA
+        // =========================
+        $totalKategoriBerita = KategoriBerita::count();
+
 
         // =========================
         // KEGIATAN
@@ -40,11 +49,13 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+
         // =========================
         // PENGURUS
         // =========================
         $totalPengurus = Pengurus::count();
         $jumlahPengurus = $totalPengurus;
+
 
         // =========================
         // PENDAFTARAN
@@ -61,6 +72,7 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+
         // =========================
         // PESAN
         // =========================
@@ -68,27 +80,35 @@ class DashboardController extends Controller
         $pesanBelumDibaca = 0;
 
         try {
+
             $jumlahPesan = Pesan::count();
 
             $pesanBelumDibaca = Pesan::where(
                 'status',
                 'belum dibaca'
             )->count();
+
         } catch (\Throwable $e) {
+
             $jumlahPesan = 0;
             $pesanBelumDibaca = 0;
+
         }
+
 
         // =========================
         // KIRIM DATA KE DASHBOARD
         // =========================
         return view('admin.dashboard', compact(
+
             'totalAnggota',
             'jumlahAnggota',
 
             'totalBerita',
             'jumlahBerita',
             'beritaTerbaru',
+
+            'totalKategoriBerita',
 
             'totalKegiatan',
             'jumlahKegiatan',
@@ -104,6 +124,7 @@ class DashboardController extends Controller
 
             'jumlahPesan',
             'pesanBelumDibaca'
+
         ));
     }
 }
