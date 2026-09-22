@@ -39,16 +39,14 @@ class PublicController extends Controller
     /**
      * Halaman Berita
      */
-    public function berita()
-    {
-        $berita = Berita::with('kategori')
-            ->where('status', 'published')
-            ->latest('published_at')
-            ->paginate(9);
+   public function berita()
+{
+    $berita = \App\Models\Berita::with('kategori')
+        ->latest()
+        ->paginate(9);
 
-        return view('public.berita', compact('berita'));
-    }
-
+    return view('public.berita', compact('berita'));
+}
 
     /**
      * Detail Berita
